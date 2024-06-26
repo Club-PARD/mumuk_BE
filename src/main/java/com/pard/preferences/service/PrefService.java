@@ -9,8 +9,6 @@ import com.pard.user.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 @RequiredArgsConstructor
@@ -25,33 +23,41 @@ public class PrefService {
     public void createPref(PrefDto.Create dto, String uid) {
         User user = userRepo.findByUid(uid)
                 .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
-        Preferences preferences = Preferences.toEntity(dto, user);
+        Preferences preferences = Preferences.toEntity(dto);
         user.setPreferences(preferences);
         userRepo.save(user);
 
     }
 
 
-    public Preferences getPreferencesByUserId(String uid) {
+    public Preferences getUserByUid(String uid) {
         User user = userRepo.findByUid(uid).orElseThrow(() -> new RuntimeException("User not found"));
         return user.getPreferences();
     }
 
+
     public Preferences updatePreferences(Long id, Preferences newPreferences) {
-        Preferences preferences = prefRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        Preferences preferences = prefRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Preferences not found"));
         preferences.setKoreanFood(newPreferences.getKoreanFood());
         preferences.setJapaneseFood(newPreferences.getJapaneseFood());
         preferences.setChineseFood(newPreferences.getChineseFood());
         preferences.setWesternFood(newPreferences.getWesternFood());
         preferences.setSoutheastAsianFood(newPreferences.getSoutheastAsianFood());
+        preferences.setMeat(newPreferences.getMeat());
+        preferences.setSeafood(newPreferences.getSeafood());
+        preferences.setRice(newPreferences.getRice());
+        preferences.setNoodles(newPreferences.getNoodles());
+        preferences.setSoup(newPreferences.getSoup());
+        preferences.setGrilled(newPreferences.getGrilled());
+        preferences.setHealthyFood(newPreferences.getHealthyFood());
         preferences.setFastFood(newPreferences.getFastFood());
         preferences.setSpicyFood(newPreferences.getSpicyFood());
-        preferences.setHerbs(newPreferences.getHerbs());
-        preferences.setSeafood(newPreferences.getSeafood());
-        preferences.setVegetables(newPreferences.getVegetables());
+        preferences.setExceptionalFood(newPreferences.getExceptionalFood());
         preferences.setAllergies(newPreferences.getAllergies());
         return prefRepo.save(preferences);
     }
+
 
 
 

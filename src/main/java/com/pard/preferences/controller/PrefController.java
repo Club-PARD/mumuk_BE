@@ -15,7 +15,7 @@ public class PrefController {
 
     @GetMapping("/{uid}")
     public Preferences getPreferencesByUid(@PathVariable String uid) {
-        return prefService.getPreferencesByUserId(uid);
+        return prefService.getUserByUid(uid);
     }
     @PostMapping("/{uid}")
     public void createPref(@RequestBody PrefDto.Create preferences, @PathVariable String uid) {

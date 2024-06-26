@@ -3,6 +3,8 @@ package com.pard.preferences.dto;
 import com.pard.preferences.entity.Preferences;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -20,12 +22,17 @@ public class PrefDto {
         private int chineseFood;
         private int westernFood;
         private int southeastAsianFood;
+        private int meat;
+        private int seafood;
+        private int rice;
+        private int noodles;
+        private int soup;
+        private int grilled;
+        private int healthyFood;
         private int fastFood;
         private int spicyFood;
-        private int herbs;
-        private int seafood;
-        private int vegetables;
-        private String allergies;
+        private List<String> exceptionalFood;
+        private List<String> allergies;
     }
 
     @Getter
@@ -37,12 +44,17 @@ public class PrefDto {
         private int chineseFood;
         private int westernFood;
         private int southeastAsianFood;
+        private int meat;
+        private int seafood;
+        private int rice;
+        private int noodles;
+        private int soup;
+        private int grilled;
+        private int healthyFood;
         private int fastFood;
         private int spicyFood;
-        private int herbs;
-        private int seafood;
-        private int vegetables;
-        private String allergies;
+        private List<String> exceptionalFood;
+        private List<String> allergies;
 
         public Read(Preferences preferences) {
             this.uid = preferences.getUser().getUid();
@@ -51,11 +63,16 @@ public class PrefDto {
             this.chineseFood = preferences.getChineseFood();
             this.westernFood = preferences.getWesternFood();
             this.southeastAsianFood = preferences.getSoutheastAsianFood();
+            this.meat = preferences.getMeat();
+            this.seafood = preferences.getSeafood();
+            this.rice = preferences.getRice();
+            this.noodles = preferences.getNoodles();
+            this.soup = preferences.getSoup();
+            this.grilled = preferences.getGrilled();
+            this.healthyFood = preferences.getHealthyFood();
             this.fastFood = preferences.getFastFood();
             this.spicyFood = preferences.getSpicyFood();
-            this.herbs = preferences.getHerbs();
-            this.seafood = preferences.getSeafood();
-            this.vegetables = preferences.getVegetables();
+            this.exceptionalFood = preferences.getExceptionalFood();
             this.allergies = preferences.getAllergies();
         }
     }
