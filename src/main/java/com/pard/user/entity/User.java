@@ -40,6 +40,7 @@ public class User {
                 .uid(dto.getUid())
                 .name(dto.getName())
                 .email(dto.getEmail())
+                .image(dto.getImage())
                 .build();
     }
     public void setPreferences(Preferences preferences) {
