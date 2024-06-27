@@ -7,7 +7,6 @@ import com.pard.user.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,6 +35,12 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "preferences_id", referencedColumnName = "id")
     private Preferences preferences;
+
+
+    @ElementCollection
+    @CollectionTable(name = "friendUidLists", joinColumns = @JoinColumn(name = "uid"))
+    @Column(name = "friendUidList")
+    private List<String> friendUidList;
 
 
     public static User toEntity(UserDto.Create dto){

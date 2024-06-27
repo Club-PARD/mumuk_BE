@@ -21,9 +21,9 @@ public class PrefController {
     public void createPref(@RequestBody PrefDto.Create preferences, @PathVariable String uid) {
         prefService.createPref(preferences, uid);
     }
-    @PutMapping("/{id}")
-    public Preferences updatePreferences(@PathVariable Long id, @RequestBody Preferences newPreferences) {
-        return prefService.updatePreferences(id, newPreferences);
+    @PutMapping("/{prefId}")
+    public Preferences updatePreferences(@PathVariable Long prefId, @RequestBody Preferences newPreferences) {
+        return prefService.updatePreferences(prefId, newPreferences);
     }
 
 }

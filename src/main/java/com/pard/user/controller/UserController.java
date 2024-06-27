@@ -2,7 +2,6 @@ package com.pard.user.controller;
 
 //import com.pard.gpt.service.ChatGPTService;
 //import com.pard.gpt.service.GptService;
-import com.pard.image.service.ImageService;
 import com.pard.user.dto.UserDto;
 import com.pard.user.dto.UserWithPrefDto;
 import com.pard.user.entity.User;
@@ -26,7 +25,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
-    ImageService imageService;
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
    // private final ChatGPTService gptService;
@@ -79,6 +77,48 @@ public class UserController {
             return ResponseEntity.status(500).build();
         }
     }
+    @PostMapping("/add-friend")
+    @Operation(summary = "친구 추가", description = "닉네임으로 친구를 추가합니다.")
+    public ResponseEntity<String> addFriend(@RequestParam String userUid, @RequestParam String friendUid) {
+        try {
+            userService.addFriend(userUid, friendUid);
+            return ResponseEntity.ok("친구 추가됨");
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(404).body("User not found: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error adding friend: {}", e.getMessage());
+            return ResponseEntity.status(500).body("친구 추가 중 오류 발생");
+        }
+    }
+
+    @PostMapping("/delete-friend")
+    @Operation(summary = "친구 삭제", description = "닉네임으로 친구를 삭제합니다.")
+    public ResponseEntity<String> deleteFriend(@RequestParam String userUid, @RequestParam String friendUid) {
+        try {
+            userService.deleteFriend(userUid, friendUid);
+            return ResponseEntity.ok("친구 삭제됨");
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(404).body("User not found: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error deleting friend: {}", e.getMessage());
+            return ResponseEntity.status(500).body("친구 삭제 중 오류 발생");
+        }
+    }
+
+    @GetMapping("/{uid}/friends")
+    @Operation(summary = "친구 목록 조회", description = "사용자의 친구 목록을 조회합니다.")
+    public ResponseEntity<List<String>> getFriendList(@PathVariable String uid) {
+        try {
+            List<String> friends = userService.getFriendList(uid);
+            return ResponseEntity.ok(friends);
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
+        } catch (Exception e) {
+            logger.error("Error fetching friend list: {}", e.getMessage());
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+}
 /*
     @PostMapping("/users-with-pref/gpt")
     public ResponseEntity<Map<String, Object>> getUsersWithPrefAndSendToGpt(@RequestBody List<String> uids) {
@@ -98,4 +138,4 @@ public class UserController {
         }
     }
  */
-}
+
