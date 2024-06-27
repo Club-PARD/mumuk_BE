@@ -25,10 +25,13 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String uid;
+    @Column(unique = true, nullable = false)
     private String name;
+    @Column(unique = true, nullable = false)
     private String email;
 
-    private Integer image = 0;
+    @Column(nullable = false)
+    private Integer imageId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "preferences_id", referencedColumnName = "id")
@@ -40,7 +43,7 @@ public class User {
                 .uid(dto.getUid())
                 .name(dto.getName())
                 .email(dto.getEmail())
-                .image(dto.getImage())
+                .imageId(dto.getImageId())
                 .build();
     }
     public void setPreferences(Preferences preferences) {

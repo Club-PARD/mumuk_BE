@@ -17,7 +17,7 @@ public class UserDto {
         private String uid;
         private String name;
         private String email;
-        private Integer image;
+        private Integer imageId;
     }
 
     @Setter
@@ -27,7 +27,7 @@ public class UserDto {
         private String uid;
         private String name;
         private String email;
-        private Integer image;
+        private Integer imageId;
         private PrefDto preferences;
 
 
@@ -36,7 +36,7 @@ public class UserDto {
             this.uid = user.getUid();
             this.name = user.getName();
             this.email = user.getEmail();
-            this.image = user.getImage();
+            this.imageId = user.getImageId();
         }
     }
 }

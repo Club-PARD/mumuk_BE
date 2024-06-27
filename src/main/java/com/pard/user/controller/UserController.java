@@ -2,9 +2,12 @@ package com.pard.user.controller;
 
 //import com.pard.gpt.service.ChatGPTService;
 //import com.pard.gpt.service.GptService;
+import com.pard.image.service.ImageService;
 import com.pard.user.dto.UserDto;
 import com.pard.user.dto.UserWithPrefDto;
+import com.pard.user.entity.User;
 import com.pard.user.exception.UserNotFoundException;
+import com.pard.user.repo.UserRepo;
 import com.pard.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
+    ImageService imageService;
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
    // private final ChatGPTService gptService;
@@ -49,6 +53,7 @@ public class UserController {
         }
         return allUsers;
     }
+
 
     @GetMapping("/{uid}/with-pref")
     public ResponseEntity<UserWithPrefDto> getUserWithPref(@PathVariable String uid) {
