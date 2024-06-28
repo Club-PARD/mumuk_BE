@@ -26,8 +26,7 @@ public class User {
     private String uid;
     @Column(unique = true, nullable = false)
     private String name;
-    @Column(unique = true, nullable = false)
-    private String email;
+
 
     @Column(nullable = false)
     private Integer imageId;
@@ -47,7 +46,6 @@ public class User {
         return User.builder()
                 .uid(dto.getUid())
                 .name(dto.getName())
-                .email(dto.getEmail())
                 .imageId(dto.getImageId())
                 .build();
     }

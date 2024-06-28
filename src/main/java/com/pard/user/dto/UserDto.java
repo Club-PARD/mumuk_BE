@@ -16,7 +16,6 @@ public class UserDto {
     public static class Create{
         private String uid;
         private String name;
-        private String email;
         private Integer imageId;
     }
 
@@ -26,7 +25,6 @@ public class UserDto {
     public static class Read{
         private String uid;
         private String name;
-        private String email;
         private Integer imageId;
         private PrefDto preferences;
 
@@ -35,7 +33,6 @@ public class UserDto {
         public Read(User user) {
             this.uid = user.getUid();
             this.name = user.getName();
-            this.email = user.getEmail();
             this.imageId = user.getImageId();
         }
     }

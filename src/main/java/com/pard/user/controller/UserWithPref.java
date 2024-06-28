@@ -23,7 +23,7 @@ public class UserWithPref {
     private static final Logger logger = LoggerFactory.getLogger(UserWithPref.class);
     private final UserWithPrefService userWithPrefService;
 
-    @GetMapping("/{uid}/with-pref")
+    @GetMapping("/with-pref/{uid}")
     @Operation(summary = "유저의 선호도와 함께 유저 데이터 조회", description = "유저 uid 필요")
     public ResponseEntity<UserWithPrefDto> getUserWithPref(@PathVariable String uid) {
         try {
@@ -35,7 +35,7 @@ public class UserWithPref {
         }
     }
 
-    @GetMapping("/users-with-pref")
+    @GetMapping("/with-pref")
     @Operation(summary = "여러 유저들의 선호도와 함께 유저 데이터 조회", description = "유저 uid 리스트가 필요")
     public ResponseEntity<Map<String, List<UserWithPrefDto>>> getUsersWithPref(@RequestParam List<String> uids) {
         logger.info("Fetching users with preferences for UIDs: {}", uids);

@@ -1,9 +1,6 @@
 package com.pard.user.service;
 
-import com.pard.preferences.entity.Preferences;
-import com.pard.preferences.repo.PrefRepo;
 import com.pard.user.dto.UserDto;
-import com.pard.user.dto.UserWithPrefDto;
 import com.pard.user.entity.User;
 import com.pard.user.exception.UserFoundException;
 import com.pard.user.exception.UserNotFoundException;
