@@ -98,11 +98,4 @@ public class Preferences {
                 .allergies(dto.getAllergies())
                 .build();
     }
-
-    public void setUser(User user) {
-        this.user = user;
-        if (user.getPreferences() != this) {
-            user.setPreferences(this);
-        }
-    }
 }
