@@ -2,7 +2,6 @@ package com.pard.user.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.pard.preferences.dto.PrefDto;
 import com.pard.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,8 @@ import lombok.Setter;
 public class UserDto {
     @Setter
     @Getter
-    public static class Create{
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class Create {
         private String uid;
         private String name;
         private Integer imageId;
@@ -21,18 +21,38 @@ public class UserDto {
     @Setter
     @Getter
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class Read{
+    public static class Read {
         private String uid;
         private String name;
         private Integer imageId;
-        private PrefDto preferences;
-
-
+        private boolean isDaily;
 
         public Read(User user) {
             this.uid = user.getUid();
             this.name = user.getName();
             this.imageId = user.getImageId();
+            this.isDaily = user.isDaily();
         }
     }
+
+        @Setter
+        @Getter
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        public static class ReadGroup {
+            private String uid;
+            private String name;
+            private Integer imageId;
+            private boolean isDaily;
+            private String groupId;
+
+            public ReadGroup(User user) {
+                this.uid = user.getUid();
+                this.name = user.getName();
+                this.imageId = user.getImageId();
+                this.isDaily = user.isDaily();
+                this.groupId = user.getGroup().getId();
+            }
+    }
+
+
 }

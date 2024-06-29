@@ -2,6 +2,7 @@ package com.pard.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.pard.group.entity.Group;
 import com.pard.preferences.entity.Preferences;
 import com.pard.user.dto.UserDto;
 import jakarta.persistence.*;
@@ -30,6 +31,19 @@ public class User {
 
     @Column(nullable = false)
     private Integer imageId;
+
+    @Column(nullable = false)
+    private boolean isDaily = false;
+
+    @Column(nullable = false)
+    private boolean isGrouped = false;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+
+
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "preferences_id", referencedColumnName = "id")
@@ -60,4 +74,10 @@ public class User {
     public Long getPrefId() {
         return preferences == null ? null : preferences.getId();
     }
+
+    public void setIsGrouped(boolean b) {
+        isGrouped = b;
+    }
+
+
 }

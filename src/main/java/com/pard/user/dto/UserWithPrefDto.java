@@ -3,8 +3,8 @@ package com.pard.user.dto;
 import com.pard.preferences.entity.Preferences;
 import com.pard.user.entity.User;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @Setter
