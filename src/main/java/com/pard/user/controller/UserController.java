@@ -1,9 +1,6 @@
 package com.pard.user.controller;
 
-//import com.pard.gpt.service.ChatGPTService;
-//import com.pard.gpt.service.GptService;
 import com.pard.user.dto.UserDto;
-import com.pard.user.dto.UserWithPrefDto;
 import com.pard.user.exception.UserNotFoundException;
 import com.pard.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +19,6 @@ import java.util.List;
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
-   // private final ChatGPTService gptService;
 
     @PostMapping("/create")
     @Operation(summary = "유저 등록", description = "모든 필드 null 불가")
@@ -46,27 +42,6 @@ public class UserController {
         }
         return allUsers;
     }
-
-
-
 }
-/*
-    @PostMapping("/users-with-pref/gpt")
-    public ResponseEntity<Map<String, Object>> getUsersWithPrefAndSendToGpt(@RequestBody List<String> uids) {
-        logger.info("Processing users with preferences for UIDs: {}", uids);
-        try {
-            // Step 1: Fetch user preferences data
-            List<UserWithPrefDto> usersWithPref = userService.getUsersWithPref(uids);
 
-            // Step 2: Send fetched data to GPT service
-            //Map<String, Object> gptResponse = gptService.sendDataToGpt(usersWithPref);
-
-            // Step 3: Return the response from the GPT service
-            //return ResponseEntity.ok(gptResponse);
-        } catch (Exception e) {
-            logger.error("Error processing users with preferences: {}", e.getMessage());
-            return ResponseEntity.status(500).build();
-        }
-    }
- */
 

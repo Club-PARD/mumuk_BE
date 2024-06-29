@@ -2,7 +2,6 @@ package com.pard.user.controller;
 
 import com.pard.user.exception.UserNotFoundException;
 import com.pard.user.service.FriendService;
-import com.pard.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
