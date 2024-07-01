@@ -40,8 +40,14 @@ public class UserService {
                 .map(user -> new UserDto.Read(user))
                 .collect(Collectors.toList());
     }
-
+    public void updateImage(String uid, Integer imageId) {
+        User user = userRepo.findByUid(uid)
+                .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
+        user.setImageId(imageId);
+        userRepo.save(user);
+    }
 
 }
+
 
 

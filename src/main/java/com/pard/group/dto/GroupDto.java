@@ -15,9 +15,12 @@ public class GroupDto {
     @Getter
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Create {
-        private String groupId;
         private List<String> userUids;
 
+
+        public String getGroupId() {
+            return userUids.stream().findFirst().orElse(null);
+        }
     }
 
     @Setter
@@ -28,7 +31,7 @@ public class GroupDto {
         private List<String> userUids;
 
         public Read(Group group) {
-            this.groupId = group.getUsers().stream().findFirst().orElse(null).getUid(); // Assuming the first user is the creator
+            this.groupId = group.getId(); 
             this.userUids = group.getUsers().stream().map(User::getUid).collect(Collectors.toList());
         }
     }

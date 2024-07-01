@@ -26,12 +26,14 @@ public class UserDto {
         private String name;
         private Integer imageId;
         private boolean isDaily;
+        private boolean isGrouped;
 
         public Read(User user) {
             this.uid = user.getUid();
             this.name = user.getName();
             this.imageId = user.getImageId();
             this.isDaily = user.isDaily();
+            this.isGrouped = user.isGrouped();
         }
     }
 
