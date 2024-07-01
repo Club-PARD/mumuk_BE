@@ -22,11 +22,21 @@ public class UserService {
         if (existingUser.isPresent()) {
             throw new UserFoundException("User uid already exists");
         }
-
+        existingUser = userRepo.findByName(dto.getName());
+        if (existingUser.isPresent()) {
+            throw new UserFoundException("User name already exists");
+        }
         userRepo.save(User.toEntity(dto));
     }
 
-
+    public boolean checkExists(String uid, String name) {
+        if (uid != null) {
+            return userRepo.findByUid(uid).isPresent();
+        } else if (name != null) {
+            return userRepo.findByName(name).isPresent();
+        }
+        return false;
+    }
     public UserDto.Read findByUid(String uid) {
         User user = userRepo.findByUid(uid)
                 .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
@@ -40,6 +50,7 @@ public class UserService {
                 .map(user -> new UserDto.Read(user))
                 .collect(Collectors.toList());
     }
+
     public boolean updateUser(String uid, Integer imageId, String name) throws UserNotFoundException {
         User user = userRepo.findByUid(uid).orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
 

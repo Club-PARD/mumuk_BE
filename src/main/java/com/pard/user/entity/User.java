@@ -51,9 +51,9 @@ public class User {
 
 
     @ElementCollection
-    @CollectionTable(name = "friendUidLists", joinColumns = @JoinColumn(name = "uid"))
-    @Column(name = "friendUidList")
-    private List<String> friendUidList;
+    @CollectionTable(name = "friendNameLists", joinColumns = @JoinColumn(name = "name"))
+    @Column(name = "friendNameList")
+    private List<String> friendNameList;
 
 
     public static User toEntity(UserDto.Create dto){

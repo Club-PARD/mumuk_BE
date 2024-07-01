@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,13 @@ public class UserController {
     public String createUser(@RequestBody UserDto.Create dto) {
         userService.createUser(dto);
         return "추가됨";
+    }
+
+    @Operation(summary = "uid 또는 name이 이미 있는지 없는지 체크", description = "이미 있으면 true 없으면 false")
+    @GetMapping("/checkExists")
+    public boolean findUser(@RequestParam(value = "uid", required = false) String uid,
+                            @RequestParam(value = "name", required = false) String name) {
+        return userService.checkExists(uid, name);
     }
 
     @Operation(summary = "모든 유저 조회 또는 특정 유저 조회", description = "특정 유저 조회 시 uid 필수")

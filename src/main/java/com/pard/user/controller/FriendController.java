@@ -20,9 +20,9 @@ public class FriendController {
 
     @PostMapping("/add")
     @Operation(summary = "친구 추가", description = "닉네임으로 친구를 추가합니다.")
-    public ResponseEntity<String> addFriend(@RequestParam String userUid, @RequestParam String friendUid) {
+    public ResponseEntity<String> addFriend(@RequestParam String userName, @RequestParam String friendName) {
         try {
-            friendService.addFriend(userUid, friendUid);
+            friendService.addFriend(userName, friendName);
             return ResponseEntity.ok("친구 추가됨");
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(404).body("User not found: " + e.getMessage());
@@ -34,9 +34,9 @@ public class FriendController {
 
     @PostMapping("/delete")
     @Operation(summary = "친구 삭제", description = "닉네임으로 친구를 삭제합니다.")
-    public ResponseEntity<String> deleteFriend(@RequestParam String userUid, @RequestParam String friendUid) {
+    public ResponseEntity<String> deleteFriend(@RequestParam String userName, @RequestParam String friendName) {
         try {
-            friendService.deleteFriend(userUid, friendUid);
+            friendService.deleteFriend(userName, friendName);
             return ResponseEntity.ok("친구 삭제됨");
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(404).body("User not found: " + e.getMessage());
@@ -46,11 +46,11 @@ public class FriendController {
         }
     }
 
-    @GetMapping("/{uid}")
+    @GetMapping("/{name}")
     @Operation(summary = "친구 목록 조회", description = "사용자의 친구 목록을 조회합니다.")
-    public ResponseEntity<List<String>> getFriendList(@PathVariable String uid) {
+    public ResponseEntity<List<String>> getFriendList(@PathVariable String name) {
         try {
-            List<String> friends = friendService.getFriendList(uid);
+            List<String> friends = friendService.getFriendList(name);
             return ResponseEntity.ok(friends);
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(404).body(null);

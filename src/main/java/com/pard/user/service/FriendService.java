@@ -13,43 +13,44 @@ import java.util.List;
 public class FriendService {
     private final UserRepo userRepo;
 
-    public void addFriend(String userUid, String friendUid) {
-        User user = userRepo.findByUid(userUid)
-                .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + userUid));
-        User friend = userRepo.findByUid(friendUid)
-                .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + friendUid));
+    public void addFriend(String userName, String friendName) {
+        User user = userRepo.findByName(userName)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + userName));
+        User friend = userRepo.findByName(userName)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + friendName));
 
-        if (!user.getFriendUidList().contains(friendUid)) {
-            user.getFriendUidList().add(friendUid);
+        if (!user.getFriendNameList().contains(friendName)) {
+            user.getFriendNameList().add(friendName);
             userRepo.save(user);
         }
 
-        if (!friend.getFriendUidList().contains(userUid)) {
-            friend.getFriendUidList().add(userUid);
+        if (!friend.getFriendNameList().contains(userName)) {
+            friend.getFriendNameList().add(userName);
             userRepo.save(friend);
         }
     }
 
-    public void deleteFriend(String userUid, String friendUid) {
-        User user = userRepo.findByUid(userUid)
-                .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + userUid));
-        User friend = userRepo.findByUid(friendUid)
-                .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + friendUid));
+    public void deleteFriend(String userName, String friendName) {
+        User user = userRepo.findByName(userName)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + userName));
+        User friend = userRepo.findByName(friendName)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + friendName));
 
-        if (user.getFriendUidList().contains(friendUid)) {
-            user.getFriendUidList().remove(friendUid);
+        if (user.getFriendNameList().contains(friendName)) {
+            user.getFriendNameList().remove(friendName);
             userRepo.save(user);
         }
 
-        if (friend.getFriendUidList().contains(userUid)) {
-            friend.getFriendUidList().remove(userUid);
+        if (friend.getFriendNameList().contains(userName)) {
+            friend.getFriendNameList().remove(userName);
             userRepo.save(friend);
         }
     }
 
-    public List<String> getFriendList(String uid) {
-        User user = userRepo.findByUid(uid)
-                .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
-        return user.getFriendUidList();
+    public List<String> getFriendList(String name) {
+        User user = userRepo.findByName(name)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + name));
+        return user.getFriendNameList();
     }
+
 }
