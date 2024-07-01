@@ -45,19 +45,25 @@ public class UserController {
         return allUsers;
     }
 
-    @Operation(summary = "유저의 이미지 Update", description = "uid랑 imageId 보내주면 해당 imageId로 update")
-    @PutMapping("/{uid}")
-    public ResponseEntity<String> imageUpdate(@PathVariable String uid, @RequestParam Integer imageId) {
-        try {
-            userService.updateImage(uid, imageId);
-            return ResponseEntity.ok("이미지 업데이트 완료");
-        } catch (UserNotFoundException e) {
-            return ResponseEntity.status(404).body("User not found: " + e.getMessage());
-        } catch (Exception e) {
-            logger.error("Error updating image: {}", e.getMessage());
-            return ResponseEntity.status(500).body("이미지 업데이트 중 오류 발생");
-        }
 
+    @Operation(summary = "유저의 이미지 또는 name Update", description = "uid랑 imageId 또는 name을 보내주면 해당 imageId 또는 name으로 update")
+    @PutMapping("/{uid}")
+    public ResponseEntity<String> updateUser(@PathVariable String uid,
+                                             @RequestParam(value = "imageId", required = false) Integer imageId,
+                                             @RequestParam(value = "name", required = false) String name) {
+        try {
+            boolean isUpdated = userService.updateUser(uid, imageId, name);
+            if (isUpdated) {
+                return ResponseEntity.ok("업데이트 완료");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("업데이트할 정보가 없습니다.");
+            }
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error updating user: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("업데이트 중 오류 발생");
+        }
     }
 }
 

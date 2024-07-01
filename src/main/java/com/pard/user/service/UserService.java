@@ -40,12 +40,27 @@ public class UserService {
                 .map(user -> new UserDto.Read(user))
                 .collect(Collectors.toList());
     }
-    public void updateImage(String uid, Integer imageId) {
-        User user = userRepo.findByUid(uid)
-                .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
-        user.setImageId(imageId);
-        userRepo.save(user);
+    public boolean updateUser(String uid, Integer imageId, String name) throws UserNotFoundException {
+        User user = userRepo.findByUid(uid).orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
+
+        boolean updated = false;
+        if (imageId != null && imageId >= 1 && imageId <= 20) {
+            user.setImageId(imageId);
+            updated = true;
+        }
+
+        if (name != null && !name.isEmpty()) {
+            user.setName(name);
+            updated = true;
+        }
+
+        if (updated) {
+            userRepo.save(user);
+        }
+
+        return updated;
     }
+
 
 }
 

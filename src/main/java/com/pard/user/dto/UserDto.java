@@ -15,7 +15,7 @@ public class UserDto {
     public static class Create {
         private String uid;
         private String name;
-        private Integer imageId;
+        private int imageId;
     }
 
     @Setter
@@ -24,7 +24,7 @@ public class UserDto {
     public static class Read {
         private String uid;
         private String name;
-        private Integer imageId;
+        private int imageId;
         private boolean isDaily;
         private boolean isGrouped;
 
@@ -43,7 +43,7 @@ public class UserDto {
         public static class ReadGroup {
             private String uid;
             private String name;
-            private Integer imageId;
+            private int imageId;
             private boolean isDaily;
             private String groupId;
 
