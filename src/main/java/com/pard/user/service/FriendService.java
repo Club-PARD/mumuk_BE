@@ -16,7 +16,7 @@ public class FriendService {
     public void addFriend(String userName, String friendName) {
         User user = userRepo.findByName(userName)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + userName));
-        User friend = userRepo.findByName(userName)
+        User friend = userRepo.findByName(friendName)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + friendName));
 
         if (!user.getFriendNameList().contains(friendName)) {

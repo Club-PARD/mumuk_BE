@@ -25,7 +25,7 @@ public class FriendController {
             friendService.addFriend(userName, friendName);
             return ResponseEntity.ok("친구 추가됨");
         } catch (UserNotFoundException e) {
-            return ResponseEntity.status(404).body("User not found: " + e.getMessage());
+            return ResponseEntity.status(404).body(e.getMessage());
         } catch (Exception e) {
             logger.error("Error adding friend: {}", e.getMessage());
             return ResponseEntity.status(500).body("친구 추가 중 오류 발생");

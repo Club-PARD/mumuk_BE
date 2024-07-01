@@ -8,6 +8,7 @@ import com.pard.user.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -51,9 +52,9 @@ public class User {
 
 
     @ElementCollection
-    @CollectionTable(name = "friendNameLists", joinColumns = @JoinColumn(name = "name"))
-    @Column(name = "friendNameList")
-    private List<String> friendNameList;
+    @CollectionTable(name = "friend_name_list", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "friend_name")
+    private List<String> friendNameList = new ArrayList<>();
 
 
     public static User toEntity(UserDto.Create dto){
