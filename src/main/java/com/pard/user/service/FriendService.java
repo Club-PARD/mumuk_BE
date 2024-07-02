@@ -1,5 +1,6 @@
 package com.pard.user.service;
 
+import com.pard.user.dto.FriendDto;
 import com.pard.user.entity.User;
 import com.pard.user.exception.UserNotFoundException;
 import com.pard.user.repo.UserRepo;
@@ -7,18 +8,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class FriendService {
     private final UserRepo userRepo;
 
-    public void addFriend(String userName, String friendName) {
+    public boolean addFriend(String userName, String friendName) {
         User user = userRepo.findByName(userName)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + userName));
         User friend = userRepo.findByName(friendName)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + friendName));
-
+        if (user.getFriendNameList().contains(friendName)) {
+            return false;
+        }
         if (!user.getFriendNameList().contains(friendName)) {
             user.getFriendNameList().add(friendName);
             userRepo.save(user);
@@ -28,6 +32,7 @@ public class FriendService {
             friend.getFriendNameList().add(userName);
             userRepo.save(friend);
         }
+        return true;
     }
 
     public void deleteFriend(String userName, String friendName) {
@@ -47,10 +52,14 @@ public class FriendService {
         }
     }
 
-    public List<String> getFriendList(String name) {
+    public List<FriendDto.Read> getFriendList(String name) {
         User user = userRepo.findByName(name)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + name));
-        return user.getFriendNameList();
+        return user.getFriendNameList().stream()
+                .map(friendName -> userRepo.findByName(friendName)
+                        .map(FriendDto.Read::new)
+                        .orElseThrow(() -> new UserNotFoundException("Friend not found: " + friendName)))
+                .collect(Collectors.toList());
     }
 
 }

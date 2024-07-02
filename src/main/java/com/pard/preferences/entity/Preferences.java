@@ -38,6 +38,9 @@ public class Preferences {
     @Column(name = "southeast_asian_food")
     private int southeastAsianFood;
 
+    @Column(name = "else_food")
+    private int elseFood;
+
     @Column(name = "meat")
     private int meat;
 

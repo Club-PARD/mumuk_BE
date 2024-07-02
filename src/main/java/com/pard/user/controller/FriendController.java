@@ -1,5 +1,6 @@
 package com.pard.user.controller;
 
+import com.pard.user.dto.FriendDto;
 import com.pard.user.exception.UserNotFoundException;
 import com.pard.user.service.FriendService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +23,9 @@ public class FriendController {
     @Operation(summary = "친구 추가", description = "닉네임으로 친구를 추가합니다.")
     public ResponseEntity<String> addFriend(@RequestParam String userName, @RequestParam String friendName) {
         try {
-            friendService.addFriend(userName, friendName);
+            if(!friendService.addFriend(userName, friendName)){
+                return ResponseEntity.status(409).body("이미 친구 추가됨");
+            }
             return ResponseEntity.ok("친구 추가됨");
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(404).body(e.getMessage());
@@ -48,9 +51,9 @@ public class FriendController {
 
     @GetMapping("/{name}")
     @Operation(summary = "친구 목록 조회", description = "사용자의 친구 목록을 조회합니다.")
-    public ResponseEntity<List<String>> getFriendList(@PathVariable String name) {
+    public ResponseEntity<List<FriendDto.Read>> getFriendList(@PathVariable String name) {
         try {
-            List<String> friends = friendService.getFriendList(name);
+            List<FriendDto.Read> friends = friendService.getFriendList(name);
             return ResponseEntity.ok(friends);
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(404).body(null);

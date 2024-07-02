@@ -26,6 +26,7 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String uid;
+
     @Column(unique = true, nullable = false)
     private String name;
 
@@ -38,6 +39,11 @@ public class User {
 
     @Column(nullable = false)
     private boolean isGrouped = false;
+
+    @ManyToOne
+    @JoinColumn(name = "tag_id")
+    private UserTag tag;
+
 
     @ManyToOne
     @JoinColumn(name = "group_id")
