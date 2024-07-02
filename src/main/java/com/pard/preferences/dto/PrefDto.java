@@ -53,6 +53,8 @@ public class PrefDto {
         private int healthyFood;
         private int fastFood;
         private int spicyFood;
+        private List<String> exceptionalFood;
+        private List<String> allergies;
 
 
         public Read(Preferences preferences) {
@@ -71,6 +73,12 @@ public class PrefDto {
             this.healthyFood = preferences.getHealthyFood();
             this.fastFood = preferences.getFastFood();
             this.spicyFood = preferences.getSpicyFood();
+            this.exceptionalFood = preferences.getExceptionalFoods().stream()
+                    .map(exceptionalFood -> exceptionalFood.getName())
+                    .toList();
+            this.allergies = preferences.getAllergies().stream()
+                    .map(allergy -> allergy.getName())
+                    .toList();
 
         }
     }

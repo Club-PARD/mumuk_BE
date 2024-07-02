@@ -69,10 +69,13 @@ public class Preferences {
     @Column(name = "spicy_food")
     private int spicyFood;
 
-    @ElementCollection
-    @CollectionTable(name = "exceptional_food", joinColumns = @JoinColumn(name = "preferences_id"))
-    @Column(name = "food")
-    private List<String> exceptionalFood;
+    @ManyToMany
+    @JoinTable(
+            name = "user_exceptionalFood",
+            joinColumns = @JoinColumn(name = "preferences_id"),
+            inverseJoinColumns = @JoinColumn(name = "exceptionalFood_id")
+    )
+    private List<ExceptionalFood> exceptionalFoods = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
