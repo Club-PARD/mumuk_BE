@@ -1,4 +1,4 @@
-package com.pard.preferences.dto;
+package com.pard.dailyPreferences.dto;
 
 import com.pard.preferences.entity.Preferences;
 import lombok.*;
@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @Builder
-public class PrefDto {
+public class DailyPrefDto {
 
     @Getter
     @Setter
@@ -53,7 +53,8 @@ public class PrefDto {
         private int healthyFood;
         private int fastFood;
         private int spicyFood;
-
+        private List<String> exceptionalFood;
+        private List<String> allergies;
 
         public Read(Preferences preferences) {
             this.uid = preferences.getUser().getUid();
@@ -71,7 +72,8 @@ public class PrefDto {
             this.healthyFood = preferences.getHealthyFood();
             this.fastFood = preferences.getFastFood();
             this.spicyFood = preferences.getSpicyFood();
-
+            this.exceptionalFood = preferences.getExceptionalFood();
+            this.allergies = preferences.getAllergies();
         }
     }
 }

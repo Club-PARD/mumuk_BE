@@ -1,4 +1,4 @@
-package com.pard.preferences.entity;
+package com.pard.dailyPreferences.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import com.pard.user.entity.User;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,7 +17,7 @@ import java.util.List;
 @Builder
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Preferences {
+public class DailyPreferences {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,19 +73,16 @@ public class Preferences {
     @Column(name = "food")
     private List<String> exceptionalFood;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_allergies",
-            joinColumns = @JoinColumn(name = "preferences_id"),
-            inverseJoinColumns = @JoinColumn(name = "allergy_id")
-    )
-    private List<Allergy> allergies = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "allergies", joinColumns = @JoinColumn(name = "preferences_id"))
+    @Column(name = "allergy")
+    private List<String> allergies;
 
     @OneToOne(mappedBy = "preferences")
     private User user;
 
-    public static Preferences toEntity(PrefDto.Create dto) {
-        return Preferences.builder()
+    public static DailyPreferences toEntity(PrefDto.Create dto) {
+        return DailyPreferences.builder()
                 .koreanFood(dto.getKoreanFood())
                 .japaneseFood(dto.getJapaneseFood())
                 .chineseFood(dto.getChineseFood())
@@ -101,13 +97,17 @@ public class Preferences {
                 .healthyFood(dto.getHealthyFood())
                 .fastFood(dto.getFastFood())
                 .spicyFood(dto.getSpicyFood())
+                .exceptionalFood(dto.getExceptionalFood())
+                .allergies(dto.getAllergies())
                 .build();
     }
-
+/*
     public void setUser(User user) {
         this.user = user;
-        if (user.getPreferences() != this) {
+        if (user.getDailyPreferences() != this) {
             user.setPreferences(this);
         }
     }
+
+ */
 }

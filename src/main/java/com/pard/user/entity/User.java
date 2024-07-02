@@ -2,6 +2,7 @@ package com.pard.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.pard.dailyPreferences.entity.DailyPreferences;
 import com.pard.group.entity.Group;
 import com.pard.preferences.entity.Preferences;
 import com.pard.user.dto.UserDto;
@@ -56,6 +57,10 @@ public class User {
     @JoinColumn(name = "preferences_id", referencedColumnName = "id")
     private Preferences preferences;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "daily_id", referencedColumnName = "id")
+    private DailyPreferences dailyPreferences;
+
 
     @ElementCollection
     @CollectionTable(name = "friend_name_list", joinColumns = @JoinColumn(name = "user_id"))
@@ -87,4 +92,7 @@ public class User {
     }
 
 
+    public boolean getDailyPreferences() {
+        return isDaily;
+    }
 }
