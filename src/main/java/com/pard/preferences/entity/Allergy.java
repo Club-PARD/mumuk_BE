@@ -16,6 +16,4 @@ public class Allergy {
     @Column(unique = true, nullable = false)
     private String name;
 
-
-    // Constructors, getters and setters
 }
