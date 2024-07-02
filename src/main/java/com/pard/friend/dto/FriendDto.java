@@ -1,4 +1,4 @@
-package com.pard.user.dto;
+package com.pard.friend.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pard.user.entity.User;

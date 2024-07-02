@@ -1,6 +1,6 @@
-package com.pard.user.service;
+package com.pard.friend.service;
 
-import com.pard.user.dto.FriendDto;
+import com.pard.friend.dto.FriendDto;
 import com.pard.user.entity.User;
 import com.pard.user.exception.UserNotFoundException;
 import com.pard.user.repo.UserRepo;

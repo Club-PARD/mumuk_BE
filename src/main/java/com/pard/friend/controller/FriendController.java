@@ -1,8 +1,8 @@
-package com.pard.user.controller;
+package com.pard.friend.controller;
 
-import com.pard.user.dto.FriendDto;
+import com.pard.friend.dto.FriendDto;
 import com.pard.user.exception.UserNotFoundException;
-import com.pard.user.service.FriendService;
+import com.pard.friend.service.FriendService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
