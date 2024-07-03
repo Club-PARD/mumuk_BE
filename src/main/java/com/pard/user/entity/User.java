@@ -39,6 +39,9 @@ public class User {
 
     @Column(nullable = false)
     private boolean isGrouped = false;
+
+    @Column(nullable = false)
+    private boolean isReady = false;
 /*
     @ManyToOne
     @JoinColumn(name = "tag_id")
@@ -86,6 +89,10 @@ public class User {
 
     public void setIsGrouped(boolean b) {
         isGrouped = b;
+    }
+    public void setIsReady(boolean b) {
+        isReady = b;
+        isDaily = b;
     }
 
 }

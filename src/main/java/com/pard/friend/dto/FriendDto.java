@@ -17,6 +17,7 @@ public class FriendDto {
         private int imageId;
         private boolean isGrouped;
         private boolean isDaily;
+        private boolean isReady;
 
         public Read(User user) {
             this.uid = user.getUid();
@@ -24,6 +25,7 @@ public class FriendDto {
             this.imageId = user.getImageId();
             this.isGrouped = user.isGrouped();
             this.isDaily = user.isDaily();
+            this.isReady = user.isReady();
         }
     }
 
