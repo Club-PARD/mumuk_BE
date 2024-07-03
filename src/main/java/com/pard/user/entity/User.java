@@ -39,10 +39,12 @@ public class User {
 
     @Column(nullable = false)
     private boolean isGrouped = false;
-
+/*
     @ManyToOne
     @JoinColumn(name = "tag_id")
     private UserTag tag;
+
+ */
 
 
     @ManyToOne
