@@ -41,7 +41,7 @@ public class TodayPreferences {
     private int todayNoSoup;
     private String notToday;
 
-    @OneToOne(mappedBy = "preferences")
+    @OneToOne(mappedBy = "todayPreferences")
     private User user;
 
     public static TodayPreferences toEntity(TodayPrefDto.Create dto) {

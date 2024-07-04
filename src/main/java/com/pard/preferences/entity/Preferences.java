@@ -74,6 +74,10 @@ public class Preferences {
     @Column(name = "no_soup")
     private int noSoup;
 
+    @ManyToOne
+    @JoinColumn(name = "food_type_id")
+    private FoodType foodType;
+
 
     @ManyToMany
     @JoinTable(
@@ -84,18 +88,11 @@ public class Preferences {
     private List<ExceptionalFood> exceptionalFoods = new ArrayList<>();
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "foodType",
-            joinColumns = @JoinColumn(name = "preferences_id"),
-            inverseJoinColumns = @JoinColumn(name = "foodType_id")
-    )
-    private List<FoodType> foodTypes = new ArrayList<>();
 
     @OneToOne(mappedBy = "preferences")
     private User user;
 
-    public static Preferences toEntity(PrefDto.Create dto) {
+    public static Preferences toEntity(PrefDto.Create dto, FoodType foodType) {
         return Preferences.builder()
                 .spicyType(dto.isSpicyType())
                 .koreanFood(dto.getKoreanFood())
@@ -114,8 +111,8 @@ public class Preferences {
                 .noSoup(dto.getNoSoup())
                 .carbohydrate(dto.getCarbohydrate())
                 .vegetable(dto.getVegetable())
+                .foodType(foodType)
                 .exceptionalFoods(new ArrayList<>())
-                .foodTypes(new ArrayList<>())
                 .build();
     }
 
@@ -124,6 +121,9 @@ public class Preferences {
         if (user.getPreferences() != this) {
             user.setPreferences(this);
         }
+    }
+    public String getFoodTypeName() {
+        return foodType != null ? foodType.getName() : null;
     }
 
 }

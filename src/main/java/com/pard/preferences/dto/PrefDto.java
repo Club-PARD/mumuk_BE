@@ -1,5 +1,6 @@
 package com.pard.preferences.dto;
 
+import com.pard.preferences.entity.FoodType;
 import com.pard.preferences.entity.Preferences;
 import lombok.*;
 
@@ -35,7 +36,7 @@ public class PrefDto {
         private int noSoup;
         private int heavy;
         private int light;
-        private List<String> foodTypes;
+        private int foodTypeId;  // Use ID to reference FoodType
         private List<String> exceptionalFoods;
     }
 
@@ -62,7 +63,7 @@ public class PrefDto {
         private int heavy;
         private int light;
         private List<String> exceptionalFoods;
-        private List<String> foodTypes;
+        private String foodTypeName;
 
 
         public Read(Preferences preferences) {
@@ -90,9 +91,7 @@ public class PrefDto {
                     .map(exceptionalFood -> exceptionalFood.getName())
                     .toList();
 
-            this.foodTypes = preferences.getFoodTypes().stream()
-                    .map(foodType -> foodType.getName())
-                    .toList();
+            this.foodTypeName = preferences.getFoodTypeName();
         }
     }
 }

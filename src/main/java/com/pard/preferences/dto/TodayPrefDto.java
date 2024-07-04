@@ -65,7 +65,7 @@ public class TodayPrefDto {
         private int todaySoup;
         private int todayNoSoup;
         private String notToday;
-        private List<String> foodTypes;
+        private String foodType;
         private List<String> exceptionalFoods;
 
     public Read(TodayPreferences todayPreferences, Preferences preferences) {
@@ -95,9 +95,8 @@ public class TodayPrefDto {
                 .map(exceptionalFood -> exceptionalFood.getName())
                 .toList();
 
-        this.foodTypes = preferences.getFoodTypes().stream()
-                .map(foodType -> foodType.getName())
-                .toList();
+        this.foodType = preferences.getFoodType().getName();
+
         }
 
     }

@@ -40,8 +40,7 @@ public class UserWithPrefDto {
         private int noSoup;
         private int heavy;
         private int light;
-        private List<String> notToday;
-        private List<String> foodTypes;
+        private String foodTypes;
         private List<String> exceptionalFoods;
 
         public Read(User user, Preferences preferences) {
@@ -69,13 +68,12 @@ public class UserWithPrefDto {
             this.heavy = preferences.getHeavy();
             this.light = preferences.getLight();
 
+            this.foodTypes = preferences.getFoodType().getName();
+
             this.exceptionalFoods = preferences.getExceptionalFoods().stream()
                     .map(exceptionalFood -> exceptionalFood.getName())
                     .toList();
 
-            this.foodTypes = preferences.getFoodTypes().stream()
-                    .map(foodType -> foodType.getName())
-                    .toList();
         }
 
     }

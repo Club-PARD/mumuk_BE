@@ -37,7 +37,11 @@ public class PrefService {
     public void createPref(PrefDto.Create dto, String uid) {
         User user = userRepo.findByUid(uid)
                 .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
-        Preferences preferences = Preferences.toEntity(dto);
+
+        FoodType foodType = foodTypeRepo.findById(dto.getFoodTypeId())
+                .orElseThrow(() -> new RuntimeException("Food type not found: " + dto.getFoodTypeId()));
+
+        Preferences preferences = Preferences.toEntity(dto, foodType);
 
         List<ExceptionalFood> exceptionalFoods = dto.getExceptionalFoods().stream()
                 .map(foodId -> exceptionalFoodRepo.findById(Integer.parseInt(foodId))
@@ -45,11 +49,6 @@ public class PrefService {
                 .collect(Collectors.toList());
         preferences.setExceptionalFoods(exceptionalFoods);
 
-        List<FoodType> foodTypes = dto.getFoodTypes().stream()
-                .map(foodId -> foodTypeRepo.findById(Integer.parseInt(foodId))
-                        .orElseThrow(() -> new RuntimeException("Food type not found: " + foodId)))
-                .collect(Collectors.toList());
-        preferences.setFoodTypes(foodTypes);
 
         preferences.setUser(user);
         prefRepo.save(preferences);
@@ -83,7 +82,9 @@ public class PrefService {
         preferences.setNoSoup(newPreferences.getNoSoup());
         preferences.setHeavy(newPreferences.getHeavy());
         preferences.setLight(newPreferences.getLight());
-        preferences.setFoodTypes(newPreferences.getFoodTypes());
+        FoodType foodType = foodTypeRepo.findById(newPreferences.getFoodType().getId())
+                .orElseThrow(() -> new RuntimeException("Food type not found: " + newPreferences.getFoodType().getId()));
+        preferences.setFoodType(foodType);
         preferences.setExceptionalFoods(newPreferences.getExceptionalFoods());
         return prefRepo.save(preferences);
     }
