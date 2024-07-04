@@ -16,4 +16,7 @@ public class UserTag {
 
     private String tags;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

@@ -27,7 +27,6 @@ public class Preferences {
     @Column(name = "spicy_type")
     private boolean spicyType;
 
-
     @Column(name = "korean_food")
     private int koreanFood;
 
@@ -75,6 +74,7 @@ public class Preferences {
     @Column(name = "no_soup")
     private int noSoup;
 
+
     @ManyToMany
     @JoinTable(
             name = "user_exceptionalFood",
@@ -98,7 +98,6 @@ public class Preferences {
             inverseJoinColumns = @JoinColumn(name = "foodType_id")
     )
     private List<FoodType> foodTypes = new ArrayList<>();
-
 
     @OneToOne(mappedBy = "preferences")
     private User user;

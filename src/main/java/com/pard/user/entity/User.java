@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.pard.group.entity.Group;
 import com.pard.preferences.entity.Preferences;
+import com.pard.preferences.entity.TodayPreferences;
 import com.pard.user.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +31,6 @@ public class User {
     @Column(unique = true, nullable = false)
     private String name;
 
-
     @Column(nullable = false)
     private int imageId;
 
@@ -43,30 +43,25 @@ public class User {
     @Column(nullable = false)
     private boolean isReady = false;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tags", referencedColumnName = "id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserTag> tags = new ArrayList<>();
-
 
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
 
-
-
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "preferences_id", referencedColumnName = "id")
     private Preferences preferences;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "today_preferences_id", referencedColumnName = "id")
+    private TodayPreferences todayPreferences;
 
     @ElementCollection
     @CollectionTable(name = "friend_name_list", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "friend_name")
     private List<String> friendNameList = new ArrayList<>();
-
-
-
 
     public static User toEntity(UserDto.Create dto){
         return User.builder()
