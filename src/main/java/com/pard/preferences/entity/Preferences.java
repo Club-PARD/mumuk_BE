@@ -83,13 +83,6 @@ public class Preferences {
     )
     private List<ExceptionalFood> exceptionalFoods = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_notToday",
-            joinColumns = @JoinColumn(name = "preferences_id"),
-            inverseJoinColumns = @JoinColumn(name = "notToday_id")
-    )
-    private List<NotToday> notToday = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -122,7 +115,6 @@ public class Preferences {
                 .carbohydrate(dto.getCarbohydrate())
                 .vegetable(dto.getVegetable())
                 .exceptionalFoods(new ArrayList<>())
-                .notToday(new ArrayList<>())
                 .foodTypes(new ArrayList<>())
                 .build();
     }

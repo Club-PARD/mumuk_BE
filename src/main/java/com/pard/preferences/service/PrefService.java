@@ -3,10 +3,8 @@ package com.pard.preferences.service;
 import com.pard.preferences.dto.PrefDto;
 import com.pard.preferences.entity.ExceptionalFood;
 import com.pard.preferences.entity.FoodType;
-import com.pard.preferences.entity.NotToday;
 import com.pard.preferences.entity.Preferences;
 import com.pard.preferences.repo.FoodTypeRepo;
-import com.pard.preferences.repo.NotTodayRepo;
 import com.pard.preferences.repo.ExceptionalFoodRepo;
 import com.pard.preferences.repo.PrefRepo;
 import com.pard.user.entity.User;
@@ -31,9 +29,6 @@ public class PrefService {
     private final UserRepo userRepo;
 
     @Autowired
-    private final NotTodayRepo notTodayRepo;
-
-    @Autowired
     private final ExceptionalFoodRepo exceptionalFoodRepo;
 
     @Autowired
@@ -43,12 +38,6 @@ public class PrefService {
         User user = userRepo.findByUid(uid)
                 .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
         Preferences preferences = Preferences.toEntity(dto);
-
-        List<NotToday> notToday = dto.getNotToday().stream()
-                .map(allergyId -> notTodayRepo.findById(Integer.parseInt(allergyId))
-                        .orElseThrow(() -> new RuntimeException("Not Today not found: " + allergyId)))
-                .collect(Collectors.toList());
-        preferences.setNotToday(notToday);
 
         List<ExceptionalFood> exceptionalFoods = dto.getExceptionalFoods().stream()
                 .map(foodId -> exceptionalFoodRepo.findById(Integer.parseInt(foodId))
@@ -96,7 +85,6 @@ public class PrefService {
         preferences.setLight(newPreferences.getLight());
         preferences.setFoodTypes(newPreferences.getFoodTypes());
         preferences.setExceptionalFoods(newPreferences.getExceptionalFoods());
-        preferences.setNotToday(newPreferences.getNotToday());
         return prefRepo.save(preferences);
     }
 

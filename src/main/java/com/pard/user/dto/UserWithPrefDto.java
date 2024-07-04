@@ -73,10 +73,6 @@ public class UserWithPrefDto {
                     .map(exceptionalFood -> exceptionalFood.getName())
                     .toList();
 
-            this.notToday = preferences.getNotToday().stream()
-                    .map(notToday -> notToday.getName())
-                    .toList();
-
             this.foodTypes = preferences.getFoodTypes().stream()
                     .map(foodType -> foodType.getName())
                     .toList();

@@ -2,10 +2,9 @@ package com.pard.preferences.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.pard.preferences.dto.TodayPrefDto;
+import com.pard.user.entity.User;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -40,5 +39,34 @@ public class TodayPreferences {
     private int todayLight;
     private int todaySoup;
     private int todayNoSoup;
+    private String notToday;
+
+    @OneToOne(mappedBy = "preferences")
+    private User user;
+
+    public static TodayPreferences toEntity(TodayPrefDto.Create dto) {
+        return TodayPreferences.builder()
+                .todayKoreanFood(dto.getTodayKoreanFood())
+                .todayJapaneseFood(dto.getTodayJapaneseFood())
+                .todayChineseFood(dto.getTodayChineseFood())
+                .todayWesternFood(dto.getTodayWesternFood())
+                .todaySoutheastAsianFood(dto.getTodaySoutheastAsianFood())
+                .todayElseFood(dto.getTodayElseFood())
+                .todayMeat(dto.getTodayMeat())
+                .todaySeafood(dto.getTodaySeafood())
+                .todayCarbohydrate(dto.getTodayCarbohydrate())
+                .todayVegetable(dto.getTodayVegetable())
+                .redFood(dto.getRedFood())
+                .notRedFood(dto.getNotRedFood())
+                .todayRice(dto.getTodayRice())
+                .todayBread(dto.getTodayBread())
+                .todayNoodle(dto.getTodayNoodle())
+                .todayHeavy(dto.getTodayHeavy())
+                .todayLight(dto.getTodayLight())
+                .todaySoup(dto.getTodaySoup())
+                .todayNoSoup(dto.getTodayNoSoup())
+                .build();
+    }
+
 
 }

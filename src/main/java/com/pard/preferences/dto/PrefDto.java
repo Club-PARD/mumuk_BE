@@ -35,7 +35,6 @@ public class PrefDto {
         private int noSoup;
         private int heavy;
         private int light;
-        private List<String> notToday;
         private List<String> foodTypes;
         private List<String> exceptionalFoods;
     }
@@ -63,7 +62,6 @@ public class PrefDto {
         private int heavy;
         private int light;
         private List<String> exceptionalFoods;
-        private List<String> notToday;
         private List<String> foodTypes;
 
 
@@ -90,10 +88,6 @@ public class PrefDto {
 
             this.exceptionalFoods = preferences.getExceptionalFoods().stream()
                     .map(exceptionalFood -> exceptionalFood.getName())
-                    .toList();
-
-            this.notToday = preferences.getNotToday().stream()
-                    .map(notToday -> notToday.getName())
                     .toList();
 
             this.foodTypes = preferences.getFoodTypes().stream()
