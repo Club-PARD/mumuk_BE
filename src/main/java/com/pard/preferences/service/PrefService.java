@@ -60,6 +60,7 @@ public class PrefService {
                 .map(foodId -> foodTypeRepo.findById(Integer.parseInt(foodId))
                         .orElseThrow(() -> new RuntimeException("Food type not found: " + foodId)))
                 .collect(Collectors.toList());
+        preferences.setFoodTypes(foodTypes);
 
         preferences.setUser(user);
         prefRepo.save(preferences);
@@ -93,7 +94,8 @@ public class PrefService {
         preferences.setNoSoup(newPreferences.getNoSoup());
         preferences.setHeavy(newPreferences.getHeavy());
         preferences.setLight(newPreferences.getLight());
-//        preferences.setExceptionalFoods(newPreferences.getExceptionalFoods());
+        preferences.setFoodTypes(newPreferences.getFoodTypes());
+        preferences.setExceptionalFoods(newPreferences.getExceptionalFoods());
         preferences.setNotToday(newPreferences.getNotToday());
         return prefRepo.save(preferences);
     }

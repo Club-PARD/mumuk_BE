@@ -5,8 +5,6 @@ import com.pard.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 public class FriendDto {
     @Setter
     @Getter
