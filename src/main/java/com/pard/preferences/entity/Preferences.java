@@ -9,6 +9,7 @@ import com.pard.user.entity.User;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -23,6 +24,10 @@ public class Preferences {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "spicy_type")
+    private boolean spicyType;
+
 
     @Column(name = "korean_food")
     private int koreanFood;
@@ -87,11 +92,21 @@ public class Preferences {
     )
     private List<NotToday> notToday = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "foodType",
+            joinColumns = @JoinColumn(name = "preferences_id"),
+            inverseJoinColumns = @JoinColumn(name = "foodType_id")
+    )
+    private List<FoodType> foodTypes = new ArrayList<>();
+
+
     @OneToOne(mappedBy = "preferences")
     private User user;
 
     public static Preferences toEntity(PrefDto.Create dto) {
         return Preferences.builder()
+                .spicyType(dto.isSpicyType())
                 .koreanFood(dto.getKoreanFood())
                 .japaneseFood(dto.getJapaneseFood())
                 .chineseFood(dto.getChineseFood())
@@ -108,6 +123,9 @@ public class Preferences {
                 .noSoup(dto.getNoSoup())
                 .carbohydrate(dto.getCarbohydrate())
                 .vegetable(dto.getVegetable())
+                .exceptionalFoods(new ArrayList<>())
+                .notToday(new ArrayList<>())
+                .foodTypes(new ArrayList<>())
                 .build();
     }
 
@@ -117,4 +135,5 @@ public class Preferences {
             user.setPreferences(this);
         }
     }
+
 }

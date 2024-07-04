@@ -18,6 +18,7 @@ public class PrefDto {
     @AllArgsConstructor
     @Builder
     public static class Create {
+        private boolean spicyType;
         private int koreanFood;
         private int japaneseFood;
         private int chineseFood;
@@ -35,14 +36,16 @@ public class PrefDto {
         private int noSoup;
         private int heavy;
         private int light;
-        private List<String> exceptionalFood;
-        private List<String> allergies;
+        private List<String> notToday;
+        private List<String> foodTypes;
+        private List<String> exceptionalFoods;
     }
 
     @Getter
     @Setter
     public static class Read {
 //        private String uid;
+        private boolean spicyType;
         private int koreanFood;
         private int japaneseFood;
         private int chineseFood;
@@ -60,12 +63,14 @@ public class PrefDto {
         private int noSoup;
         private int heavy;
         private int light;
-        private List<String> exceptionalFood;
-        private List<String> allergies;
+        private List<String> exceptionalFoods;
+        private List<String> notToday;
+        private List<String> foodTypes;
 
 
         public Read(Preferences preferences) {
 //            this.uid = preferences.getUser().getUid();
+            this.spicyType = preferences.isSpicyType();
             this.koreanFood = preferences.getKoreanFood();
             this.japaneseFood = preferences.getJapaneseFood();
             this.chineseFood = preferences.getChineseFood();
@@ -84,11 +89,16 @@ public class PrefDto {
             this.heavy = preferences.getHeavy();
             this.light = preferences.getLight();
 
-            this.exceptionalFood = preferences.getExceptionalFoods().stream()
+            this.exceptionalFoods = preferences.getExceptionalFoods().stream()
                     .map(exceptionalFood -> exceptionalFood.getName())
                     .toList();
-            this.allergies = preferences.getAllergies().stream()
-                    .map(allergy -> allergy.getName())
+
+            this.notToday = preferences.getNotToday().stream()
+                    .map(notToday -> notToday.getName())
+                    .toList();
+
+            this.foodTypes = preferences.getFoodTypes().stream()
+                    .map(foodType -> foodType.getName())
                     .toList();
         }
     }
