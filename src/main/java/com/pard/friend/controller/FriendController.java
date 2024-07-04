@@ -62,5 +62,4 @@ public class FriendController {
             return ResponseEntity.status(500).body(null);
         }
     }
-
 }

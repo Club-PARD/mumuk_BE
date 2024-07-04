@@ -25,11 +25,13 @@ public class GroupDto {
     @Getter
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Read {
+
         private String groupId;
-        private List<String> userUids;
+        private List<String> createUid;
+
         public Read(Group group) {
             this.groupId = group.getId(); 
-            this.userUids = group.getUsers().stream().map(User::getUid).collect(Collectors.toList());
+            this.createUid = group.getUsers().stream().map(User::getUid).collect(Collectors.toList());
         }
     }
 }

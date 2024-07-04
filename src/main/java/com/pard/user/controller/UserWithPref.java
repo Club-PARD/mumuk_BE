@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,11 +21,11 @@ public class UserWithPref {
     private static final Logger logger = LoggerFactory.getLogger(UserWithPref.class);
     private final UserWithPrefService userWithPrefService;
 
-    @GetMapping("/with-pref/{uid}")
+    @GetMapping("/with-pref/{name}")
     @Operation(summary = "유저의 선호도와 함께 유저 데이터 조회", description = "유저 uid 필요")
-    public ResponseEntity<UserWithPrefDto> getUserWithPref(@PathVariable String uid) {
+    public ResponseEntity<UserWithPrefDto.Read> getUserWithPref(@PathVariable String name) {
         try {
-            UserWithPrefDto userWithPref = userWithPrefService.getUserWithPref(uid);
+            UserWithPrefDto.Read userWithPref = userWithPrefService.getUserWithPref(name);
             return ResponseEntity.ok(userWithPref);
         } catch (Exception e) {
             logger.error("Error fetching user with preferences: {}", e.getMessage());
@@ -35,17 +33,14 @@ public class UserWithPref {
         }
     }
 
-    @GetMapping("/with-pref")
-    @Operation(summary = "여러 유저들의 선호도와 함께 유저 데이터 조회", description = "유저 uid 리스트가 필요")
-    public ResponseEntity<Map<String, List<UserWithPrefDto>>> getUsersWithPref(@RequestParam List<String> uids) {
-        logger.info("Fetching users with preferences for UIDs: {}", uids);
+    @GetMapping("/with-pref/group")
+    @Operation(summary = "그룹 안 유저들의 선호도와 함께 유저 데이터 조회", description = "유저 group id 필요")
+    public ResponseEntity<List<UserWithPrefDto.Read>> getUsersWithPref(@RequestParam String groupId) {
         try {
-            List<UserWithPrefDto> usersWithPref = userWithPrefService.getUsersWithPref(uids);
-            Map<String, List<UserWithPrefDto>> response = new HashMap<>();
-            response.put("users", usersWithPref);
-            return ResponseEntity.ok(response);
+            List<UserWithPrefDto.Read> usersWithPref = userWithPrefService.getUsersWithPref(groupId);
+            return ResponseEntity.ok(usersWithPref);
         } catch (Exception e) {
-            logger.error("Error fetching users with preferences: {}", e.getMessage());
+            logger.error("Error fetching user with preferences: {}", e.getMessage());
             return ResponseEntity.status(500).build();
         }
     }

@@ -17,21 +17,20 @@ public class UserWithPrefService {
     private final PrefRepo prefRepo;
     private final UserRepo userRepo;
 
-    public UserWithPrefDto getUserWithPref(String uid) {
-        User user = userRepo.findByUid(uid).orElseThrow(() -> new RuntimeException("User not found"));
-        UserWithPrefDto userWithPrefDTO = new UserWithPrefDto();
-        userWithPrefDTO.setUser(user);
 
-        if (user.getPrefId() != null) {
-            Preferences preference = prefRepo.findById(user.getPrefId()).orElse(null);
-            userWithPrefDTO.setPreference(preference);
-        }
-
-        return userWithPrefDTO;
+    public UserWithPrefDto.Read getUserWithPref(String name) {
+        User user = userRepo.findByName(name).orElseThrow(() -> new RuntimeException("User not found"));
+        Preferences preference = prefRepo.findById(user.getPrefId()).orElse(null);
+        return new UserWithPrefDto.Read(user, preference);
     }
-    public List<UserWithPrefDto> getUsersWithPref(List<String> uids) {
-        return uids.stream()
-                .map(this::getUserWithPref)
+
+    public List<UserWithPrefDto.Read> getUsersWithPref(String groupId) {
+        List<User> users = userRepo.findByGroupId(groupId);  // Assuming there's a method to get users by group ID
+        return users.stream()
+                .map(user -> {
+                    Preferences preference = prefRepo.findById(user.getPrefId()).orElse(null);
+                    return new UserWithPrefDto.Read(user, preference);
+                })
                 .collect(Collectors.toList());
     }
 }
