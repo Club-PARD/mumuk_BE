@@ -17,6 +17,7 @@ public class UserWithPrefDto {
     @Getter
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Read {
+        private String uid;
         private String name;
         private int imageId;
         private boolean isDaily;
@@ -44,6 +45,7 @@ public class UserWithPrefDto {
         private List<String> exceptionalFoods;
 
         public Read(User user, Preferences preferences) {
+            this.uid = user.getUid();
             this.name = user.getName();
             this.imageId = user.getImageId();
             this.isDaily = user.isDaily();

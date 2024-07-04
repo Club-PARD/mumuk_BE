@@ -42,12 +42,10 @@ public class User {
 
     @Column(nullable = false)
     private boolean isReady = false;
-/*
-    @ManyToOne
-    @JoinColumn(name = "tag_id")
-    private UserTag tag;
 
- */
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tags", referencedColumnName = "id")
+    private List<UserTag> tags = new ArrayList<>();
 
 
     @ManyToOne
@@ -66,6 +64,8 @@ public class User {
     @CollectionTable(name = "friend_name_list", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "friend_name")
     private List<String> friendNameList = new ArrayList<>();
+
+
 
 
     public static User toEntity(UserDto.Create dto){
