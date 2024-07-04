@@ -45,29 +45,31 @@ public class Preferences {
     @Column(name = "meat")
     private int meat;
 
-    @Column(name = "seafood")
+    @Column(name = "sea_food")
     private int seafood;
+
+    private int carbohydrate;
+
+    private int vegetable;
 
     @Column(name = "rice")
     private int rice;
 
-    @Column(name = "noodles")
-    private int noodles;
+    @Column(name = "bread")
+    private int bread;
+
+    @Column(name = "noodle")
+    private int noodle;
+
+    private int heavy;
+
+    private int light;
 
     @Column(name = "soup")
     private int soup;
 
-    @Column(name = "grilled")
-    private int grilled;
-
-    @Column(name = "healthy_food")
-    private int healthyFood;
-
-    @Column(name = "fast_food")
-    private int fastFood;
-
-    @Column(name = "spicy_food")
-    private int spicyFood;
+    @Column(name = "no_soup")
+    private int noSoup;
 
     @ManyToMany
     @JoinTable(
@@ -79,11 +81,11 @@ public class Preferences {
 
     @ManyToMany
     @JoinTable(
-            name = "user_allergies",
+            name = "user_notToday",
             joinColumns = @JoinColumn(name = "preferences_id"),
-            inverseJoinColumns = @JoinColumn(name = "allergy_id")
+            inverseJoinColumns = @JoinColumn(name = "notToday_id")
     )
-    private List<Allergy> allergies = new ArrayList<>();
+    private List<NotToday> notToday = new ArrayList<>();
 
     @OneToOne(mappedBy = "preferences")
     private User user;
@@ -98,12 +100,14 @@ public class Preferences {
                 .meat(dto.getMeat())
                 .seafood(dto.getSeafood())
                 .rice(dto.getRice())
-                .noodles(dto.getNoodles())
+                .bread(dto.getBread())
+                .noodle(dto.getNoodle())
+                .heavy(dto.getHeavy())
+                .light(dto.getLight())
                 .soup(dto.getSoup())
-                .grilled(dto.getGrilled())
-                .healthyFood(dto.getHealthyFood())
-                .fastFood(dto.getFastFood())
-                .spicyFood(dto.getSpicyFood())
+                .noSoup(dto.getNoSoup())
+                .carbohydrate(dto.getCarbohydrate())
+                .vegetable(dto.getVegetable())
                 .build();
     }
 

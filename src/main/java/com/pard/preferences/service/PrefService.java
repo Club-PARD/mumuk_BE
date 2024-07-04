@@ -69,16 +69,20 @@ public class PrefService {
         preferences.setChineseFood(newPreferences.getChineseFood());
         preferences.setWesternFood(newPreferences.getWesternFood());
         preferences.setSoutheastAsianFood(newPreferences.getSoutheastAsianFood());
+        preferences.setElseFood(newPreferences.getElseFood());
         preferences.setMeat(newPreferences.getMeat());
         preferences.setSeafood(newPreferences.getSeafood());
+        preferences.setCarbohydrate(newPreferences.getCarbohydrate());
+        preferences.setVegetable(newPreferences.getVegetable());
         preferences.setRice(newPreferences.getRice());
-        preferences.setNoodles(newPreferences.getNoodles());
+        preferences.setBread(newPreferences.getBread());
+        preferences.setNoodle(newPreferences.getNoodle());
         preferences.setSoup(newPreferences.getSoup());
-        preferences.setGrilled(newPreferences.getGrilled());
-        preferences.setHealthyFood(newPreferences.getHealthyFood());
-        preferences.setFastFood(newPreferences.getFastFood());
-        preferences.setSpicyFood(newPreferences.getSpicyFood());
-
+        preferences.setNoSoup(newPreferences.getNoSoup());
+        preferences.setHeavy(newPreferences.getHeavy());
+        preferences.setLight(newPreferences.getLight());
+        preferences.setExceptionalFoods(newPreferences.getExceptionalFoods());
+        preferences.setAllergies(newPreferences.getAllergies());
         return prefRepo.save(preferences);
     }
 

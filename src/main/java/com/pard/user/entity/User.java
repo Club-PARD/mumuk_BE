@@ -90,7 +90,12 @@ public class User {
     public void setIsGrouped(boolean b) {
         isGrouped = b;
     }
+
     public void setIsReady(boolean b) {
+        isReady = b;
+    }
+
+    public void setDaily(boolean b) {
         isReady = b;
         isDaily = b;
     }
