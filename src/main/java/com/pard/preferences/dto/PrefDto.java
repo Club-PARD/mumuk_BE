@@ -1,7 +1,6 @@
 package com.pard.preferences.dto;
 
 import com.pard.preferences.entity.Preferences;
-import jakarta.persistence.Column;
 import lombok.*;
 
 import java.util.List;

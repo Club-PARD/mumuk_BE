@@ -16,8 +16,6 @@ public class GroupDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Create {
         private List<String> userUids;
-
-
         public String getGroupId() {
             return userUids.stream().findFirst().orElse(null);
         }
@@ -29,7 +27,6 @@ public class GroupDto {
     public static class Read {
         private String groupId;
         private List<String> userUids;
-
         public Read(Group group) {
             this.groupId = group.getId(); 
             this.userUids = group.getUsers().stream().map(User::getUid).collect(Collectors.toList());
