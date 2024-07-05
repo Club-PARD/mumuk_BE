@@ -126,4 +126,5 @@ public class Preferences {
         return foodType != null ? foodType.getName() : null;
     }
 
+
 }

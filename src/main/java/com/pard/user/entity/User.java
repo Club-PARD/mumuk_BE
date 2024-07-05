@@ -40,8 +40,6 @@ public class User {
     @Column(nullable = false)
     private boolean isGrouped = false;
 
-    @Column(nullable = false)
-    private boolean isReady = false;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserTag> tags = new ArrayList<>();
@@ -86,12 +84,8 @@ public class User {
         isGrouped = b;
     }
 
-    public void setIsReady(boolean b) {
-        isReady = b;
-    }
 
     public void setDaily(boolean b) {
-        isReady = b;
         isDaily = b;
     }
 

@@ -1,8 +1,8 @@
 package com.pard.preferences.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pard.preferences.entity.Preferences;
 import com.pard.preferences.entity.TodayPreferences;
+import com.pard.user.entity.User;
 import lombok.*;
 
 import java.util.List;
@@ -19,31 +19,39 @@ public class TodayPrefDto {
     @AllArgsConstructor
     @Builder
     public static class Create {
+
         private int todayKoreanFood;
         private int todayJapaneseFood;
         private int todayChineseFood;
         private int todayWesternFood;
         private int todaySoutheastAsianFood;
         private int todayElseFood;
+
         private int todayMeat;
         private int todaySeafood;
         private int todayCarbohydrate;
         private int todayVegetable;
+
         private int redFood;
         private int notRedFood;
+
         private int todayRice;
         private int todayBread;
         private int todayNoodle;
+
         private int todayHeavy;
         private int todayLight;
+
         private int todaySoup;
         private int todayNoSoup;
+
         private String notToday;
     }
 
     @Getter
     @Setter
     public static class Read {
+        private boolean isDaily;
         private boolean spicyType;
         private int todayKoreanFood;
         private int todayJapaneseFood;
@@ -68,7 +76,8 @@ public class TodayPrefDto {
         private String foodType;
         private List<String> exceptionalFoods;
 
-    public Read(TodayPreferences todayPreferences, Preferences preferences) {
+    public Read(TodayPreferences todayPreferences, Preferences preferences, User user) {
+        this.isDaily = user.isDaily();
         this.spicyType = preferences.isSpicyType();
         this.todayKoreanFood = todayPreferences.getTodayKoreanFood();
         this.todayJapaneseFood = todayPreferences.getTodayJapaneseFood();

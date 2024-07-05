@@ -28,7 +28,6 @@ public class UserDto {
         private String groupId;
         private boolean isDaily;
         private boolean isGrouped;
-        private boolean isReady;
 
         public Read(User user) {
             this.uid = user.getUid();
@@ -37,7 +36,6 @@ public class UserDto {
             this.groupId = (user.getGroup() != null) ? user.getGroup().getId() : null; // Null check
             this.isDaily = user.isDaily();
             this.isGrouped = user.isGrouped();
-            this.isReady = user.isReady();
         }
     }
 

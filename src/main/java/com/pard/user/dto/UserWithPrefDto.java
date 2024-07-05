@@ -21,7 +21,6 @@ public class UserWithPrefDto {
         private String name;
         private int imageId;
         private boolean isDaily;
-        private boolean isReady;
         private boolean spicyType;
         private int koreanFood;
         private int japaneseFood;
@@ -48,7 +47,6 @@ public class UserWithPrefDto {
             this.name = user.getName();
             this.imageId = user.getImageId();
             this.isDaily = user.isDaily();
-            this.isReady = user.isReady();
             this.spicyType = preferences.isSpicyType();
             this.koreanFood = preferences.getKoreanFood();
             this.japaneseFood = preferences.getJapaneseFood();
@@ -76,5 +74,16 @@ public class UserWithPrefDto {
 
         }
 
+    }
+    @Setter
+    @Getter
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class ReadFriend {
+        private String name;
+        private int imageId;
+
+        private boolean spicyType;
+        private String foodTypes;
+        private List<String> exceptionalFoods;
     }
 }
