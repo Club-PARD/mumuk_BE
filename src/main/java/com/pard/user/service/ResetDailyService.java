@@ -16,7 +16,7 @@ public class ResetDailyService {
     private UserRepo userRepo;
 
     @Transactional
-    @Scheduled(cron = "0 0 5 * * ?") // This cron expression means "At 05:00 AM every day"
+    @Scheduled(cron = "0 0 5 * * ?", zone = "Asia/Seoul") // 매일 새벽 5시에 실행 (한국 시간)
     public void resetDailyStatus() {
         List<User> users = userRepo.findAll(); // Assuming you have a method to get all users
         for (User user : users) {
