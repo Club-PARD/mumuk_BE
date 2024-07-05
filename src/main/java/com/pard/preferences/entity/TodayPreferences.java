@@ -67,7 +67,14 @@ public class TodayPreferences {
                 .todayLight(dto.getTodayLight())
                 .todaySoup(dto.getTodaySoup())
                 .todayNoSoup(dto.getTodayNoSoup())
+                .notToday(dto.getNotToday())
                 .build();
+    }
+    public void setTodayUser(User user) {
+        this.user = user;
+        if (user.getTodayPreferences() != this) {
+            user.setTodayPreferences(this);
+        }
     }
 
 

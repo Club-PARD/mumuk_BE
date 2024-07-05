@@ -36,7 +36,7 @@ public class PrefDto {
     @Setter
     public static class Read {
 //        private String uid;
-private boolean spicyType;
+        private boolean spicyType;
 
         private int koreanFood;
         private int japaneseFood;

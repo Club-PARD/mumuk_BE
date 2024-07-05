@@ -17,7 +17,7 @@ public class Group {
     @Id
     private String id;  // Use String for creatorId
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<User> users;
 
 }

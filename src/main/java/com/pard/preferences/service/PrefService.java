@@ -71,17 +71,7 @@ public class PrefService {
         preferences.setWesternFood(newPreferences.getWesternFood());
         preferences.setSoutheastAsianFood(newPreferences.getSoutheastAsianFood());
         preferences.setElseFood(newPreferences.getElseFood());
-        preferences.setMeat(newPreferences.getMeat());
-        preferences.setSeafood(newPreferences.getSeafood());
-        preferences.setCarbohydrate(newPreferences.getCarbohydrate());
-        preferences.setVegetable(newPreferences.getVegetable());
-        preferences.setRice(newPreferences.getRice());
-        preferences.setBread(newPreferences.getBread());
-        preferences.setNoodle(newPreferences.getNoodle());
-        preferences.setSoup(newPreferences.getSoup());
-        preferences.setNoSoup(newPreferences.getNoSoup());
-        preferences.setHeavy(newPreferences.getHeavy());
-        preferences.setLight(newPreferences.getLight());
+
         FoodType foodType = foodTypeRepo.findById(newPreferences.getFoodType().getId())
                 .orElseThrow(() -> new RuntimeException("Food type not found: " + newPreferences.getFoodType().getId()));
         preferences.setFoodType(foodType);

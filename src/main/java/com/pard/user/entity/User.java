@@ -41,9 +41,6 @@ public class User {
     private boolean isGrouped = false;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserTag> tags = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;

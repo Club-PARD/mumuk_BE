@@ -61,6 +61,7 @@ public class GroupService {
 
         // Delete the group
         groupRepo.delete(group);
+
     }
 
     public GroupDto.Read getGroup(String groupId) {
