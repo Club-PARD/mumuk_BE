@@ -4,6 +4,7 @@ import com.pard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
@@ -20,4 +21,6 @@ public class Group {
     @OneToMany(mappedBy = "group", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<User> users;
 
+    @Column(nullable = false)
+    private ZonedDateTime createdAt;  // Ensure this field is present
 }

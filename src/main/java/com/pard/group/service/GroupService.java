@@ -6,8 +6,11 @@ import com.pard.user.entity.User;
 import com.pard.group.repo.GroupRepo;
 import com.pard.user.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,7 @@ public class GroupService {
         // Create new group using the creator's UID as the group ID
         Group group = new Group();
         group.setId(groupDto.getGroupId());
+        group.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")));  // Set createdAt to current KST
         groupRepo.save(group);
 
         // Add the creating user and other users to the group
@@ -61,7 +65,6 @@ public class GroupService {
 
         // Delete the group
         groupRepo.delete(group);
-
     }
 
     public GroupDto.Read getGroup(String groupId) {
@@ -69,5 +72,14 @@ public class GroupService {
                 .orElseThrow(() -> new IllegalArgumentException("Group not found: " + groupId));
 
         return new GroupDto.Read(group);
+    }
+
+    // Method to delete groups older than 1 hour
+    public void deleteOldGroups() {
+        ZonedDateTime oneHourAgo = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).minusHours(1);
+        List<Group> oldGroups = groupRepo.findByCreatedAtBefore(oneHourAgo);
+        for (Group group : oldGroups) {
+            deleteGroup(group.getId());
+        }
     }
 }

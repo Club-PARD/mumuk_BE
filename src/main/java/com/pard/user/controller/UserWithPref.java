@@ -64,5 +64,10 @@ public class UserWithPref {
         Map<String, Object> userDetails = userWithPrefService.getGroupDaily(groupId);
         return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
+    @GetMapping("/with-pref/daily/{name}")
+    public ResponseEntity<Object> getUserDaily(@PathVariable String name) {
+        Object userDetails = userWithPrefService.getUserDaily(name);
+        return ResponseEntity.ok(userDetails);
+    }
 
 }

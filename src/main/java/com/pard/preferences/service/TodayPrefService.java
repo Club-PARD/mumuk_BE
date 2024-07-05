@@ -1,82 +1,65 @@
-//package com.pard.preferences.service;
-//
-//import com.pard.preferences.dto.PrefDto;
-//import com.pard.preferences.dto.TodayPrefDto;
-//import com.pard.preferences.entity.ExceptionalFood;
-//import com.pard.preferences.entity.FoodType;
-//import com.pard.preferences.entity.Preferences;
-//import com.pard.preferences.entity.TodayPreferences;
-//import com.pard.preferences.repo.FoodTypeRepo;
-//import com.pard.preferences.repo.ExceptionalFoodRepo;
-//import com.pard.preferences.repo.PrefRepo;
-//import com.pard.preferences.repo.TodayPrefRepo;
-//import com.pard.user.entity.User;
-//import com.pard.user.exception.UserNotFoundException;
-//import com.pard.user.repo.UserRepo;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-//@Service
-//@RequiredArgsConstructor
-//public class TodayPrefService {
-//
-//    @Autowired
-//    private final TodayPrefRepo todayPrefRepo;
-//
-//    @Autowired
-//    private final UserRepo userRepo;
-//
-//    @Autowired
-//    private final ExceptionalFoodRepo exceptionalFoodRepo;
-//
-//    @Autowired
-//    private final FoodTypeRepo foodTypeRepo;
-//
-//    public void createDailyPref(TodayPrefDto dto, String uid) {
-//
-//        User user = userRepo.findByUid(uid)
-//                .orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
-//
-//
-//        TodayPreferences todayPreferences = TodayPreferences.toEntity(dto);
-//
-//
-//        preferences.setUser(user);
-//        prefRepo.save(preferences);
-//    }
-//
-//
-//    public Preferences getUserByUid(String uid) {
-//        User user = userRepo.findByUid(uid).orElseThrow(() -> new RuntimeException("User not found"));
-//        return user.getPreferences();
-//    }
-//
-//
-//    public Preferences updatePreferences(Long id, Preferences newPreferences) {
-//        Preferences preferences = prefRepo.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Preferences not found"));
-//        preferences.setSpicyType(newPreferences.isSpicyType());
-//        preferences.setKoreanFood(newPreferences.getKoreanFood());
-//        preferences.setJapaneseFood(newPreferences.getJapaneseFood());
-//        preferences.setChineseFood(newPreferences.getChineseFood());
-//        preferences.setWesternFood(newPreferences.getWesternFood());
-//        preferences.setSoutheastAsianFood(newPreferences.getSoutheastAsianFood());
-//        preferences.setElseFood(newPreferences.getElseFood());
-//
-//        FoodType foodType = foodTypeRepo.findById(newPreferences.getFoodType().getId())
-//                .orElseThrow(() -> new RuntimeException("Food type not found: " + newPreferences.getFoodType().getId()));
-//        preferences.setFoodType(foodType);
-//        preferences.setExceptionalFoods(newPreferences.getExceptionalFoods());
-//        return prefRepo.save(preferences);
-//    }
-//
-//
-//
-//
-//
-//}
+package com.pard.preferences.service;
+
+import com.pard.preferences.dto.TodayPrefDto;
+import com.pard.preferences.entity.Preferences;
+import com.pard.preferences.entity.TodayPreferences;
+import com.pard.preferences.repo.PrefRepo;
+import com.pard.preferences.repo.TodayPrefRepo;
+import com.pard.user.entity.User;
+import com.pard.user.repo.UserRepo;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class TodayPrefService {
+    private final TodayPrefRepo todayPrefRepo;
+    private final PrefRepo prefRepo;
+    private final UserRepo userRepo;
+
+    @Transactional
+    public void saveOrUpdateTodayPref(String userName, TodayPrefDto.Create createDto) {
+        User user = userRepo.findByName(userName).orElseThrow(() -> new RuntimeException("User not found"));
+
+        TodayPreferences todayPreferences = user.getTodayPreferences();
+        if (todayPreferences == null) {
+            todayPreferences = new TodayPreferences();
+        }
+
+        todayPreferences.setTodayKoreanFood(createDto.getTodayKoreanFood());
+        todayPreferences.setTodayJapaneseFood(createDto.getTodayJapaneseFood());
+        todayPreferences.setTodayChineseFood(createDto.getTodayChineseFood());
+        todayPreferences.setTodayWesternFood(createDto.getTodayWesternFood());
+        todayPreferences.setTodaySoutheastAsianFood(createDto.getTodaySoutheastAsianFood());
+        todayPreferences.setTodayElseFood(createDto.getTodayElseFood());
+        todayPreferences.setTodayMeat(createDto.getTodayMeat());
+        todayPreferences.setTodaySeafood(createDto.getTodaySeafood());
+        todayPreferences.setTodayCarbohydrate(createDto.getTodayCarbohydrate());
+        todayPreferences.setTodayVegetable(createDto.getTodayVegetable());
+        todayPreferences.setRedFood(createDto.getRedFood());
+        todayPreferences.setNotRedFood(createDto.getNotRedFood());
+        todayPreferences.setTodayRice(createDto.getTodayRice());
+        todayPreferences.setTodayBread(createDto.getTodayBread());
+        todayPreferences.setTodayNoodle(createDto.getTodayNoodle());
+        todayPreferences.setTodayHeavy(createDto.getTodayHeavy());
+        todayPreferences.setTodayLight(createDto.getTodayLight());
+        todayPreferences.setTodaySoup(createDto.getTodaySoup());
+        todayPreferences.setTodayNoSoup(createDto.getTodayNoSoup());
+        todayPreferences.setNotToday(createDto.getNotToday());
+
+        todayPrefRepo.save(todayPreferences);
+
+        user.setTodayPreferences(todayPreferences);
+        userRepo.save(user);
+    }
+
+    @Transactional
+    public TodayPrefDto.Read getTodayPreferences(String userName) {
+        User user = userRepo.findByName(userName).orElseThrow(() -> new RuntimeException("User not found"));
+        TodayPreferences todayPreferences = user.getTodayPreferences();
+        Preferences preferences = prefRepo.findById(user.getPrefId()).orElse(null);
+
+        return new TodayPrefDto.Read(todayPreferences, preferences, user);
+    }
+}

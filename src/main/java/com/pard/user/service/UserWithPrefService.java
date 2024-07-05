@@ -81,4 +81,17 @@ public class UserWithPrefService {
                         }
                 ));
     }
+    public Object getUserDaily(String name) {
+        User user = userRepo.findByName(name).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (user.isDaily()) {
+            TodayPreferences todayPreferences = user.getTodayPreferences();
+            Preferences preferences = prefRepo.findById(user.getPrefId()).orElse(null);
+            return new TodayPrefDto.Read(todayPreferences, preferences, user);
+        } else {
+            Preferences preferences = prefRepo.findById(user.getPrefId()).orElse(null);
+            return new UserWithPrefDto.ReadGroup(user, preferences);
+        }
+    }
+
 }

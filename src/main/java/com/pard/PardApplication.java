@@ -11,5 +11,4 @@ public class PardApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PardApplication.class, args);
 	}
-
 }
