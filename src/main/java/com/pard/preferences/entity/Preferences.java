@@ -45,34 +45,7 @@ public class Preferences {
     @Column(name = "else_food")
     private int elseFood;
 
-    @Column(name = "meat")
-    private int meat;
 
-    @Column(name = "sea_food")
-    private int seafood;
-
-    private int carbohydrate;
-
-    private int vegetable;
-
-    @Column(name = "rice")
-    private int rice;
-
-    @Column(name = "bread")
-    private int bread;
-
-    @Column(name = "noodle")
-    private int noodle;
-
-    private int heavy;
-
-    private int light;
-
-    @Column(name = "soup")
-    private int soup;
-
-    @Column(name = "no_soup")
-    private int noSoup;
 
     @ManyToOne
     @JoinColumn(name = "food_type_id")
@@ -100,17 +73,7 @@ public class Preferences {
                 .chineseFood(dto.getChineseFood())
                 .westernFood(dto.getWesternFood())
                 .southeastAsianFood(dto.getSoutheastAsianFood())
-                .meat(dto.getMeat())
-                .seafood(dto.getSeafood())
-                .rice(dto.getRice())
-                .bread(dto.getBread())
-                .noodle(dto.getNoodle())
-                .heavy(dto.getHeavy())
-                .light(dto.getLight())
-                .soup(dto.getSoup())
-                .noSoup(dto.getNoSoup())
-                .carbohydrate(dto.getCarbohydrate())
-                .vegetable(dto.getVegetable())
+
                 .foodType(foodType)
                 .exceptionalFoods(new ArrayList<>())
                 .build();
