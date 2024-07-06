@@ -45,8 +45,6 @@ public class Preferences {
     @Column(name = "else_food")
     private int elseFood;
 
-
-
     @ManyToOne
     @JoinColumn(name = "food_type_id")
     private FoodType foodType;

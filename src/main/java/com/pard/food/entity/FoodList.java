@@ -18,4 +18,6 @@ public class FoodList {
     private Long id;
 
     private String foodName;
+
+    private String s3Link;
 }
