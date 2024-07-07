@@ -32,13 +32,13 @@ public class FoodListService {
         return foodListRepo.findAllFoodNames();
     }
 
-    public FoodListDto.Read getFoodWithUrl(String foodName) {
+    public String getFoodWithUrl(String foodName) {
         Optional<FoodList> optionalFood = foodListRepo.findByFoodName(foodName);
 
         if (optionalFood.isPresent()) {
             FoodList food = optionalFood.get();
             String presignedUrl = generatePresignedUrl(food.getS3Link());
-            return new FoodListDto.Read(food.getFoodName(), presignedUrl);
+            return presignedUrl;
         } else {
             throw new RuntimeException("Food not found");
         }
@@ -58,4 +58,5 @@ public class FoodListService {
         URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
         return url.toString();
     }
+
 }

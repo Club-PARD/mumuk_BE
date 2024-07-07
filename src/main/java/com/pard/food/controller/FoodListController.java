@@ -1,13 +1,12 @@
 package com.pard.food.controller;
 
 import com.pard.food.dto.FoodListDto;
+import com.pard.food.dto.FoodRecommendationDto;
 import com.pard.food.service.FoodListService;
+import com.pard.food.service.FoodRecommendationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,15 +15,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FoodListController {
     private final FoodListService foodListService;
+    private final FoodRecommendationService foodRecommendationService;
 
     @GetMapping("/list")
     public ResponseEntity<List<FoodListDto>> getAllFood() {
         List<FoodListDto> foodList = foodListService.getAllFoodNames();
         return ResponseEntity.ok(foodList);
     }
-    @GetMapping("/{foodName}")
-    public ResponseEntity<FoodListDto.Read> getFoodWithUrl(@PathVariable String foodName) {
-        FoodListDto.Read food = foodListService.getFoodWithUrl(foodName);
-        return ResponseEntity.ok(food);
+
+    @PostMapping("/recommend/{groupId}")
+    public ResponseEntity<FoodRecommendationDto> getFoodRecommendations(@PathVariable String groupId) {
+        FoodRecommendationDto recommendations = foodRecommendationService.getFoodRecommendations(groupId);
+        return ResponseEntity.ok(recommendations);
     }
 }
