@@ -41,7 +41,6 @@ public class TodayPreferences {
     private int todayNoSoup;
     private String notToday;
 
-    private boolean isDaily;
 
     @OneToOne(mappedBy = "todayPreferences")
     private User user;

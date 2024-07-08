@@ -70,6 +70,7 @@ public class Preferences {
                 .japaneseFood(dto.getJapaneseFood())
                 .chineseFood(dto.getChineseFood())
                 .westernFood(dto.getWesternFood())
+                .elseFood(dto.getElseFood())
                 .southeastAsianFood(dto.getSoutheastAsianFood())
 
                 .foodType(foodType)

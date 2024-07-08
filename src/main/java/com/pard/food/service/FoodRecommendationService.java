@@ -32,7 +32,7 @@ public class FoodRecommendationService {
     public FoodRecommendationDto getFoodRecommendations(String groupId) {
         Map<String, Object> userPreferences = getGroupDaily(groupId);
         String recommendationsJson = executePythonScript(userPreferences);
-        return parseRecommendations(recommendationsJson);
+        return parseRecommendations(recommendationsJson, groupId);
     }
 
     public Map<String, Object> getGroupDaily(String groupId) {
@@ -130,7 +130,7 @@ public class FoodRecommendationService {
         }
     }
 
-    private FoodRecommendationDto parseRecommendations(String recommendationsJson) {
+    private FoodRecommendationDto parseRecommendations(String recommendationsJson, String groupId) {
         try {
             List<Map<String, Object>> recommendations = objectMapper.readValue(recommendationsJson, List.class);
 
@@ -142,7 +142,7 @@ public class FoodRecommendationService {
             Map<String, Object> rank2 = recommendations.size() > 1 ? recommendations.get(1) : null;
             Map<String, Object> rank3 = recommendations.size() > 2 ? recommendations.get(2) : null;
             boolean isResult = recommendations.size() > 0;
-            return new FoodRecommendationDto(rank1, rank2, rank3, isResult);
+            return new FoodRecommendationDto(rank1, rank2, rank3, isResult, groupId);
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse recommendations", e);
         }

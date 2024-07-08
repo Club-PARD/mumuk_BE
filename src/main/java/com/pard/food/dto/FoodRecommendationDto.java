@@ -14,4 +14,5 @@ public class FoodRecommendationDto {
     private Map<String, Object> rank2;
     private Map<String, Object> rank3;
     private boolean isResult;
+    private String groupId;
 }

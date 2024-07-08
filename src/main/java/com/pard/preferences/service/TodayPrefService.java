@@ -19,13 +19,14 @@ public class TodayPrefService {
     private final UserRepo userRepo;
 
     @Transactional
-    public void saveOrUpdateTodayPref(String userName, TodayPrefDto.Create createDto) {
-        User user = userRepo.findByName(userName).orElseThrow(() -> new RuntimeException("User not found"));
+    public void saveOrUpdateTodayPref(String uid, TodayPrefDto.Create createDto) {
+        User user = userRepo.findByUid(uid).orElseThrow(() -> new RuntimeException("User not found"));
 
         TodayPreferences todayPreferences = user.getTodayPreferences();
         if (todayPreferences == null) {
             todayPreferences = new TodayPreferences();
         }
+        user.setDaily(true);
 
         todayPreferences.setTodayKoreanFood(createDto.getTodayKoreanFood());
         todayPreferences.setTodayJapaneseFood(createDto.getTodayJapaneseFood());

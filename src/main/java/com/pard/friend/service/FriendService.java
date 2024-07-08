@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,7 @@ public class FriendService {
         User user = userRepo.findByName(name)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + name));
         return user.getFriendNameList().stream()
+                .sorted(Comparator.naturalOrder())  // 이름순으로 정렬
                 .map(friendName -> userRepo.findByName(friendName)
                         .map(FriendDto.Read::new)
                         .orElseThrow(() -> new UserNotFoundException("Friend not found: " + friendName)))

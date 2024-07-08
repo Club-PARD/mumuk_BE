@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class TodayPrefController {
     private final TodayPrefService todayPrefService;
 
-    @PostMapping("/{userName}")
-    public ResponseEntity<Void> saveOrUpdateTodayPreferences(@PathVariable String userName, @RequestBody TodayPrefDto.Create createDto) {
-        todayPrefService.saveOrUpdateTodayPref(userName, createDto);
+    @PostMapping("/{uid}")
+    public ResponseEntity<Void> saveOrUpdateTodayPreferences(@PathVariable String uid, @RequestBody TodayPrefDto.Create createDto) {
+        todayPrefService.saveOrUpdateTodayPref(uid, createDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
