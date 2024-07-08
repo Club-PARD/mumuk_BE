@@ -11,8 +11,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 @RequiredArgsConstructor
 public class SchedulingConfig {
     private final GroupService groupService;
-
-    @Scheduled(fixedRate = 600000, zone = "Asia/Seoul")
+    //주석 제거해
+    //@Scheduled(fixedRate = 600000, zone = "Asia/Seoul")
     public void scheduleOldGroupDeletion() {
         groupService.deleteOldGroups();
     }

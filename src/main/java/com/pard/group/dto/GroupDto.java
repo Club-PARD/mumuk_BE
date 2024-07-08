@@ -28,10 +28,12 @@ public class GroupDto {
 
         private String groupId;
         private List<String> createUid;
+        private boolean isResult;
 
         public Read(Group group) {
             this.groupId = group.getId(); 
             this.createUid = group.getUsers().stream().map(User::getUid).collect(Collectors.toList());
+            this.isResult = group.isResult();
         }
     }
 }

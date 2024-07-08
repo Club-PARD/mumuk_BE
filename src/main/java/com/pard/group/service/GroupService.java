@@ -29,6 +29,7 @@ public class GroupService {
         Group group = new Group();
         group.setId(groupDto.getGroupId());
         group.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")));  // Set createdAt to current KST
+        group.setIsResult(false);  // Set isResult to false
         groupRepo.save(group);
 
         // Add the creating user and other users to the group
@@ -81,5 +82,12 @@ public class GroupService {
         for (Group group : oldGroups) {
             deleteGroup(group.getId());
         }
+    }
+
+    public Boolean getGroupResult(String groupId) {
+        Group group = groupRepo.findById(groupId)
+                .orElseThrow(() -> new IllegalArgumentException("Group not found: " + groupId));
+
+        return group.isResult();
     }
 }

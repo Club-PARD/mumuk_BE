@@ -34,5 +34,12 @@ public class GroupController {
         groupService.deleteGroup(groupId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/isResult/{groupId}")
+    @Operation(summary = "그룹Id로 해당 그룹 결과 확인", description = "그룹 결과를 반환함")
+    public ResponseEntity<Boolean> getGroupResult(@PathVariable String groupId) {
+        Boolean result = groupService.getGroupResult(groupId);
+        return ResponseEntity.ok(result);
+    }
+
 
 }

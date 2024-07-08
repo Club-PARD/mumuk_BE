@@ -2,6 +2,7 @@ package com.pard.food.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pard.food.dto.FoodRecommendationDto;
+import com.pard.group.repo.GroupRepo;
 import com.pard.preferences.entity.Preferences;
 import com.pard.preferences.entity.TodayPreferences;
 import com.pard.preferences.repo.PrefRepo;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class FoodRecommendationService {
     private final UserRepo userRepo;
     private final PrefRepo prefRepo;
+    private final GroupRepo groupRepo;
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate = new RestTemplate();
     private final FoodListService foodListService;
@@ -96,7 +98,11 @@ public class FoodRecommendationService {
                         }
 
                         userMap.put("PreferenceFood", preferenceFood);
-
+                        groupRepo.findById(groupId).ifPresent(group -> {
+                            group.setIsResult(true);
+                            groupRepo.save(group);
+                            userMap.put("isResult", true);
+                        });
                         return userMap;
                     } catch (Exception e) {
                         throw new RuntimeException("Error converting user data to Map", e);
@@ -117,6 +123,7 @@ public class FoodRecommendationService {
 
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 
+
             return response.getBody();
         } catch (Exception e) {
             throw new RuntimeException("Failed to execute Python script", e);
@@ -134,8 +141,8 @@ public class FoodRecommendationService {
             Map<String, Object> rank1 = recommendations.size() > 0 ? recommendations.get(0) : null;
             Map<String, Object> rank2 = recommendations.size() > 1 ? recommendations.get(1) : null;
             Map<String, Object> rank3 = recommendations.size() > 2 ? recommendations.get(2) : null;
-
-            return new FoodRecommendationDto(rank1, rank2, rank3);
+            boolean isResult = recommendations.size() > 0;
+            return new FoodRecommendationDto(rank1, rank2, rank3, isResult);
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse recommendations", e);
         }

@@ -73,6 +73,20 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("업데이트 중 오류 발생");
         }
     }
+
+    @Operation(summary = "유저 삭제", description = "uid로 유저 삭제")
+    @DeleteMapping("/{uid}")
+    public ResponseEntity<String> deleteUser(@PathVariable String uid) {
+        try {
+            userService.deleteUser(uid);
+            return ResponseEntity.ok("삭제 완료");
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error deleting user: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 중 오류 발생");
+        }
+    }
 }
 
 

@@ -23,4 +23,10 @@ public class Group {
 
     @Column(nullable = false)
     private ZonedDateTime createdAt;  // Ensure this field is present
+
+    private boolean isResult;
+
+    public void setIsResult(boolean b) {
+        this.isResult = b;
+    }
 }

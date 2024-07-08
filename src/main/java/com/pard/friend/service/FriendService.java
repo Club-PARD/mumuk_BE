@@ -5,6 +5,7 @@ import com.pard.user.entity.User;
 import com.pard.user.exception.UserNotFoundException;
 import com.pard.user.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,4 +63,15 @@ public class FriendService {
                 .collect(Collectors.toList());
     }
 
+    @Autowired
+    private UserRepo userRepository;
+
+    public void deleteFriendByUserName(String userName) throws UserNotFoundException {
+        List<User> users = userRepository.findAll();
+        for (User user : users) {
+            user.getFriendNameList().remove(userName);
+            userRepository.save(user);
+        }
+    }
 }
+
