@@ -3,6 +3,7 @@ package com.pard.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pard.user.entity.User;
+import com.pard.group.entity.Group;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,7 @@ public class UserDto {
         private String groupId;
         private boolean isDaily;
         private boolean isGrouped;
+        private boolean isResult;
 
         public Read(User user) {
             this.uid = user.getUid();
@@ -36,6 +38,7 @@ public class UserDto {
             this.groupId = (user.getGroup() != null) ? user.getGroup().getId() : null; // Null check
             this.isDaily = user.isDaily();
             this.isGrouped = user.isGrouped();
+            this.isResult = (user.getGroup() != null) ? user.getGroup().isResult() : false;
         }
     }
 

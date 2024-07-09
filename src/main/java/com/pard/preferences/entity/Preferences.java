@@ -60,6 +60,7 @@ public class Preferences {
 
 
 
+
     @OneToOne(mappedBy = "preferences")
     private User user;
 

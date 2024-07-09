@@ -20,7 +20,6 @@ public class PrefDto {
     public static class Create {
 
         private boolean spicyType;
-
         private int koreanFood;
         private int japaneseFood;
         private int chineseFood;

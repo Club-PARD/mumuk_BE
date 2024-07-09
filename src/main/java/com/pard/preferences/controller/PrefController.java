@@ -26,10 +26,6 @@ public class PrefController {
         prefService.createPref(preferences, uid);
     }
 
-    @PutMapping("/{prefId}")
-    @Operation(summary = "prefId로 선호도 업데이트", description = "해당 선호도 id 필요 모든 필드를 넘겨주어야함 아니면 값에 0 들어감")
-    public Preferences updatePreferences(@PathVariable Long prefId, @RequestBody Preferences newPreferences) {
-        return prefService.updatePreferences(prefId, newPreferences);
-    }
+
 
 }

@@ -41,6 +41,13 @@ public class PrefService {
         FoodType foodType = foodTypeRepo.findById(dto.getFoodTypeId())
                 .orElseThrow(() -> new RuntimeException("Food type not found: " + dto.getFoodTypeId()));
 
+        Preferences existingPreferences = user.getPreferences();
+        if (existingPreferences != null) {
+            user.setPreferences(null); // User와 Preferences의 연관관계 해제
+            prefRepo.delete(existingPreferences);
+        }
+
+
         Preferences preferences = Preferences.toEntity(dto, foodType);
 
         List<ExceptionalFood> exceptionalFoods = dto.getExceptionalFoods().stream()
@@ -59,27 +66,6 @@ public class PrefService {
         User user = userRepo.findByUid(uid).orElseThrow(() -> new RuntimeException("User not found"));
         return user.getPreferences();
     }
-
-
-    public Preferences updatePreferences(Long id, Preferences newPreferences) {
-        Preferences preferences = prefRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Preferences not found"));
-        preferences.setSpicyType(newPreferences.isSpicyType());
-        preferences.setKoreanFood(newPreferences.getKoreanFood());
-        preferences.setJapaneseFood(newPreferences.getJapaneseFood());
-        preferences.setChineseFood(newPreferences.getChineseFood());
-        preferences.setWesternFood(newPreferences.getWesternFood());
-        preferences.setSoutheastAsianFood(newPreferences.getSoutheastAsianFood());
-        preferences.setElseFood(newPreferences.getElseFood());
-
-        FoodType foodType = foodTypeRepo.findById(newPreferences.getFoodType().getId())
-                .orElseThrow(() -> new RuntimeException("Food type not found: " + newPreferences.getFoodType().getId()));
-        preferences.setFoodType(foodType);
-        preferences.setExceptionalFoods(newPreferences.getExceptionalFoods());
-        return prefRepo.save(preferences);
-    }
-
-
 
 
 
