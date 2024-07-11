@@ -24,7 +24,7 @@ public class UserWithPref {
     private final UserWithPrefService userWithPrefService;
 
     @GetMapping("/with-pref/{name}")
-    @Operation(summary = "유저의 선호도와 함께 유저 데이터 조회", description = "유저 uid 필요")
+    @Operation(summary = "유저의 선호도와 함께 유저 데이터 조회", description = "유저 name 필요")
     public ResponseEntity<UserWithPrefDto.Read> getUserWithPref(@PathVariable String name) {
         try {
             UserWithPrefDto.Read userWithPref = userWithPrefService.getUserWithPref(name);
@@ -69,5 +69,6 @@ public class UserWithPref {
         Object userDetails = userWithPrefService.getUserDaily(name);
         return ResponseEntity.ok(userDetails);
     }
+
 
 }

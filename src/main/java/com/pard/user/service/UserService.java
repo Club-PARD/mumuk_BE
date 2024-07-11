@@ -28,7 +28,9 @@ public class UserService {
         if (existingUser.isPresent()) {
             throw new UserFoundException("User name already exists");
         }
-        userRepo.save(User.toEntity(dto));
+        else {
+            userRepo.save(User.toEntity(dto));
+        }
     }
 
     public boolean checkExists(String uid, String name) {

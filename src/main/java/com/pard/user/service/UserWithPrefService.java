@@ -28,7 +28,6 @@ public class UserWithPrefService {
         return new UserWithPrefDto.Read(user, preference);
     }
 
-
     public Map<String, UserWithPrefDto.Read> getUsersWithPref(String groupId) {
         List<User> users = userRepo.findByGroupId(groupId);  // Assuming there's a method to get users by group ID
         return IntStream.range(0, users.size())
