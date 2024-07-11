@@ -3,8 +3,7 @@
 
 
 
-# Mumuk_Front_Link
-https://github.com/Club-PARD/Mumuk_iOS/blob/main/README.md
+# 🖥️ [Mumuk Frontend](https://github.com/Club-PARD/Mumuk_iOS/blob/main/README.md)
 
 <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/162880508/8f870dd8-a4c0-4443-b537-81a85cbf3c50" width="700" height="400"/>
 
