@@ -232,7 +232,7 @@ https://github.com/Club-PARD/Mumuk_iOS/blob/main/README.md
 5. **상위 음식 추천**: 그룹 선호도가 높은 상위 3개의 음식을 추천하고, 각 음식의 카테고리별 선호도를 보여줍니다.
 
 이렇게 하여 시스템은 사용자의 다양한 조건과 선호도를 고려하여 최적의 음식을 추천합니다.
-![ERD Diagram](./image.png)
+![ERD Diagram](./image/ERD.png)
 
 ### 테이블 설명
 
