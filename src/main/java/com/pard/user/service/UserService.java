@@ -59,7 +59,7 @@ public class UserService {
         User user = userRepo.findByUid(uid).orElseThrow(() -> new UserNotFoundException("User not found with uid: " + uid));
 
         boolean updated = false;
-        if (imageId != null && imageId >= 1 && imageId <= 20) {
+        if (imageId != null && imageId >= 0 && imageId <= 20) {
             user.setImageId(imageId);
             updated = true;
         }
