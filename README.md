@@ -3,7 +3,8 @@
 
 
 
-# Mumuk_iOS
+# Mumuk_Front_Link
+https://github.com/Club-PARD/Mumuk_iOS/blob/main/README.md
 
 <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/162880508/8f870dd8-a4c0-4443-b537-81a85cbf3c50" width="700" height="400"/>
 
@@ -186,6 +187,98 @@
 
 
 ----------
+# 🚀 Python 메뉴 추천 시스템
+
+## 추천 로직 설명
+
+1. **사용자 입력 받기**:
+    - 사용자의 선호도, 식단 요구사항(예: 비건, 할랄, 다이어트), 먹기 싫어하는 음식, 어제 먹은 음식 등의 정보를 JSON 형식으로 입력받습니다.
+
+2. **후보 음식 선정**:
+    - 사용자의 식단 유형(비건, 할랄, 다이어트 등)을 기준으로 후보 음식을 선정합니다.
+    - 각 사용자의 예외 음식을 제외하고, 매운 음식을 못 먹는 사용자라면 매운 음식을 제외합니다.
+    - 어제 먹은 음식을 포함하는 음식도 제외합니다.
+
+3. **공통된 음식 찾기**:
+    - 모든 사용자의 조건을 만족하는 공통된 후보 음식 목록을 생성합니다.
+
+4. **그룹 선호도 계산**:
+    - 공통된 후보 음식 각각에 대해, 모든 사용자의 선호도를 바탕으로 그룹 선호도를 계산합니다.
+    - 각 음식의 카테고리에 따라 사용자의 선호도 가중치를 적용하여 계산합니다.
+    - 음식이 여러 카테고리에 속할 수 있으며, 각 카테고리에 대해 가중치를 달리하여 선호도를 계산합니다.
+
+5. **상위 음식 추천**:
+    - 그룹 선호도가 높은 순서대로 상위 3개의 음식을 추천합니다.
+    - 각 음식에 대해 음식 카테고리별로 사용자 그룹의 선호도를 추가로 계산하여 보여줍니다.
+    - 여러 그룹(예: 고기, 해산물, 채소 등) 내에서의 선호도를 계산하여 상세히 보여줍니다.
+
+### 예시
+
+예를 들어, 세 명의 사용자가 다음과 같은 선호도를 가지고 있다고 가정해봅시다:
+
+- 사용자 1: 비건, 매운 음식 못 먹음, 어제 비빔밥 먹음
+- 사용자 2: 다이어트 중, 해산물 싫어함
+- 사용자 3: 할랄, 유제품 싫어함
+
+이 경우, 시스템은 다음과 같은 과정을 통해 음식을 추천합니다:
+
+1. **비건, 다이어트, 할랄 식단 유형에 맞는 후보 음식 선정**: 각 식단 유형에 맞는 음식 목록에서 후보 음식을 선정합니다.
+2. **각 사용자별 필터링**:
+    - 비건 사용자: 예외 음식(유제품 포함된 음식, 매운 음식 등) 제외
+    - 다이어트 사용자: 해산물 제외
+    - 할랄 사용자: 유제품 제외
+3. **공통된 음식 찾기**: 모든 사용자의 조건을 만족하는 공통된 후보 음식 목록을 생성합니다.
+4. **그룹 선호도 계산**: 공통된 후보 음식 각각에 대해, 사용자의 선호도를 바탕으로 그룹 선호도를 계산합니다.
+5. **상위 음식 추천**: 그룹 선호도가 높은 상위 3개의 음식을 추천하고, 각 음식의 카테고리별 선호도를 보여줍니다.
+
+이렇게 하여 시스템은 사용자의 다양한 조건과 선호도를 고려하여 최적의 음식을 추천합니다.
+![ERD Diagram](./image.png)
+
+### 테이블 설명
+
+- **user**: 사용자 정보를 저장합니다.
+   - `id`: 사용자 ID
+   - `name`: 사용자 이름
+   - `is_daily`: 데일리 선호도 조사 여부
+   - `preferences_id`: 사용자의 기본 선호도를 참조
+   - `today_preferences_id`: 사용자의 오늘의 선호도를 참조
+   - `group_id`: 사용자가 속한 그룹을 참조
+
+- **preferences**: 사용자의 음식 선호도를 저장합니다.
+   - `id`: 선호도 ID
+   - `korean_food`, `japanese_food`, `chinese_food`, `western_food`, `southeast_asian_food`: 각 카테고리별 음식 선호도 점수
+   - `spicy_type`: 매운 음식 선호도
+   - `food_type_id`: 식단 유형을 참조
+
+- **today_preferences**: 사용자의 오늘의 음식 선호도를 저장합니다.
+   - `id`: 오늘의 선호도 ID
+   - 여러 카테고리별 선호도 점수 (`today_korean_food`, `today_japanese_food`, `today_chinese_food` 등)
+
+- **user_group**: 사용자 그룹 정보를 저장합니다.
+   - `id`: 그룹 ID
+   - `created_at`: 그룹 생성 일자
+   - `is_result`: 그룹 결과 여부
+
+- **food_type**: 식단 유형 정보를 저장합니다.
+   - `id`: 식단 유형 ID
+   - `name`: 식단 유형 이름 (예: 비건, 할랄, 다이어트)
+
+- **exceptional_food**: 예외 음식 정보를 저장합니다.
+   - `id`: 예외 음식 ID
+   - `name`: 예외 음식 이름 (예: 해산물, 계란)
+
+- **user_exceptional_food**: 사용자별 예외 음식을 저장합니다.
+   - `preferences_id`: 사용자 선호도를 참조
+   - `exceptional_food_id`: 예외 음식을 참조
+
+- **food_list**: 음식 목록을 저장합니다.
+   - `id`: 음식 ID
+   - `food_name`: 음식 이름
+   - `s3_link`: 음식 이미지 링크
+
+- **friend_name_list**: 사용자 친구 목록을 저장합니다.
+   - `user_id`: 사용자 ID
+   - `friend_name`: 친구 이름
 
 
 
@@ -206,7 +299,10 @@
 
 
 ## 개발환경 및 언어
-<img src="https://img.shields.io/badge/Swift-white?style=for-the-badge&logo=Swift&logoColor=FF971A">
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
+
 <div>
   <img src="https://img.shields.io/badge/Github-white?style=for-the-badge&logo=Github&logoColor=FF971A">
   <img src="https://img.shields.io/badge/Notion-white?style=for-the-badge&logo=Notion&logoColor=FF971A">
