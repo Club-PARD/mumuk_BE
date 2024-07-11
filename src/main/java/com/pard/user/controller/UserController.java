@@ -87,6 +87,18 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 중 오류 발생");
         }
     }
+    @Operation(summary = "모든 유저 삭제", description = "모든 유저를 삭제합니다.")
+    @DeleteMapping("/allUsers")
+    public ResponseEntity<String> deleteAllUsers() {
+        try {
+            userService.deleteAllUsers();
+            return ResponseEntity.ok("모든 유저 삭제 완료");
+        } catch (Exception e) {
+            logger.error("Error deleting all users: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("모든 유저 삭제 중 오류 발생");
+        }
+    }
+
 }
 
 

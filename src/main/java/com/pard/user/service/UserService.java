@@ -83,6 +83,15 @@ public class UserService {
         // 친구 관계 삭제 로직 추가
         friendService.deleteFriendByUserName(user.getName());
     }
+
+    public void deleteAllUsers() {
+        List<User> users = userRepo.findAll();
+
+        for (User user : users) {
+            friendService.deleteFriendByUserName(user.getName());
+            userRepo.delete(user);
+        }
+    }
 }
 
 

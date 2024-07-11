@@ -41,5 +41,13 @@ public class GroupController {
         return ResponseEntity.ok(result);
     }
 
+    @DeleteMapping("/allGroup")
+    @Operation(summary = "그룹Id로 해당 그룹 삭제")
+    public ResponseEntity<Void> deleteAllGroup() {
+        groupService.deleteAllGroups();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 
 }

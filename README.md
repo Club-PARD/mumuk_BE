@@ -42,9 +42,155 @@ https://github.com/Club-PARD/Mumuk_iOS/blob/main/README.md
 
 
 
+# ♥ 팀원 소개
+------
+|                                                🐣 임시우                                                 |                          🐭 이주향                           |                          🦉 김예정                           |                          🐱먹꾸와 토리                            |
+|:-----------------------------------------------------------------------------------------------------:|:---------------------------------------------------------:|:---------------------------------------------------------:|:---------------------------------------------------------:|
+|                                                  PM                                                   |                            기획                             |                           디자인                            |                            사랑둥이                            |
+|  <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/b8ebc366-7bb2-40b3-9086-532a4e09cb12" style="width: 150px; height: 150px; object-fit: cover;">  |  <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/f5b7cfac-ca07-420d-b724-44952fd0e0a0" style="width: 150px; height: 150px; object-fit: cover;">   | <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/2a9b5bd9-9943-4c06-b207-bb611e37808f" style="width: 150px; height: 150px; object-fit: cover;"> |  <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/fc432403-5a28-4481-a4e4-d79e542c3f3c" style="width: 150px; height: 150px; object-fit: cover;">  |
+|                                                이시온                                                 |                          🐹 김현중                           |                          🐨 김민준                           |                          🐶 유재혁                           |
+|                                                  백엔드                                                  |                           프론트엔드                           |                           프론트엔드                           |                           프론트엔드                           |
+| <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/f26e4bed-3825-4461-8e1a-ef5a4d2dda8e" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/8803b490-b1cd-445a-a9c3-2686256fbe5f" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/df610ae8-d571-4a39-91b3-0c57a067dd84" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/f9d2904b-db60-4a17-aec1-246711d3da66" style="width: 150px; height: 150px; object-fit: cover;"> |
+
+
+## 개발환경 및 언어
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
+<div>
+  <img src="https://img.shields.io/badge/Github-white?style=for-the-badge&logo=Github&logoColor=FF971A">
+  <img src="https://img.shields.io/badge/Notion-white?style=for-the-badge&logo=Notion&logoColor=FF971A">
+  <img src="https://img.shields.io/badge/Figma-white?style=for-the-badge&logo=Figma&logoColor=FF971A">
+</div>
+
+-------
+
+# ★ 핵심 기능 설명
+
+1. **푸드 프로필**
+
+>    함께 식사를 하는 사람들끼리 서로의 취향을 알게하기 위한 기능
+>    알러지, 비선호 음식,매운맛 수용도,식단등 선택
+>    친구추가 후에 상호간 확인이 가능함
+
+2. **데일리 푸드 스크럼**
+
+>   함께 식사를 하는 사람들끼리 서로의 취향을 알게하기 위한 기능
+>   그날의 음식취향을 키워드 양자택일로 선택
+>   친구추가 후에 상호간 확인이 가능함
+
+3. **친구 추가 및 그룹핑 기능**
+
+>    함께 식사를 하는 사람들의 취향을 한눈에 보기쉽게 모으는 기능
+>    서비스내 닉네임 검색으로 친구추가
+>    친구목록에서 친구의 푸드 프로필 확인 가능
+
+4. **그룹핑된 사람들의 선호도를 반영하여 그룹의 선호가 반영된 메뉴 3개 추천**
+>    추천된 메뉴가 그룹원들의 선호가 얼마나 반영되어서 선정됐는지 표시
+
+
+----------
+# 🚀 Python 메뉴 추천 시스템
+
+## 추천 로직 설명
+
+1. **사용자 입력 받기**:
+    - 사용자의 선호도, 식단 요구사항(예: 비건, 할랄, 다이어트), 먹기 싫어하는 음식, 어제 먹은 음식 등의 정보를 JSON 형식으로 입력받습니다.
+
+2. **후보 음식 선정**:
+    - 사용자의 식단 유형(비건, 할랄, 다이어트 등)을 기준으로 후보 음식을 선정합니다.
+    - 각 사용자의 예외 음식을 제외하고, 매운 음식을 못 먹는 사용자라면 매운 음식을 제외합니다.
+    - 어제 먹은 음식을 포함하는 음식도 제외합니다.
+
+3. **공통된 음식 찾기**:
+    - 모든 사용자의 조건을 만족하는 공통된 후보 음식 목록을 생성합니다.
+
+4. **그룹 선호도 계산**:
+    - 공통된 후보 음식 각각에 대해, 모든 사용자의 선호도를 바탕으로 그룹 선호도를 계산합니다.
+    - 각 음식의 카테고리에 따라 사용자의 선호도 가중치를 적용하여 계산합니다.
+    - 음식이 여러 카테고리에 속할 수 있으며, 각 카테고리에 대해 가중치를 달리하여 선호도를 계산합니다.
+
+5. **상위 음식 추천**:
+    - 그룹 선호도가 높은 순서대로 상위 3개의 음식을 추천합니다.
+    - 각 음식에 대해 음식 카테고리별로 사용자 그룹의 선호도를 추가로 계산하여 보여줍니다.
+    - 여러 그룹(예: 고기, 해산물, 채소 등) 내에서의 선호도를 계산하여 상세히 보여줍니다.
+
+-------
+### 예시
+
+예를 들어, 세 명의 사용자가 다음과 같은 선호도를 가지고 있다고 가정해봅시다:
+
+- 사용자 1: 비건, 매운 음식 못 먹음, 어제 비빔밥 먹음
+- 사용자 2: 다이어트 중, 해산물 싫어함
+- 사용자 3: 할랄, 유제품 싫어함
+
+이 경우, 시스템은 다음과 같은 과정을 통해 음식을 추천합니다:
+
+1. **비건, 다이어트, 할랄 식단 유형에 맞는 후보 음식 선정**: 각 식단 유형에 맞는 음식 목록에서 후보 음식을 선정합니다.
+2. **각 사용자별 필터링**:
+    - 비건 사용자: 예외 음식(유제품 포함된 음식, 매운 음식 등) 제외
+    - 다이어트 사용자: 해산물 제외
+    - 할랄 사용자: 유제품 제외
+3. **공통된 음식 찾기**: 모든 사용자의 조건을 만족하는 공통된 후보 음식 목록을 생성합니다.
+4. **그룹 선호도 계산**: 공통된 후보 음식 각각에 대해, 사용자의 선호도를 바탕으로 그룹 선호도를 계산합니다.
+5. **상위 음식 추천**: 그룹 선호도가 높은 상위 3개의 음식을 추천하고, 각 음식의 카테고리별 선호도를 보여줍니다.
+
+이렇게 하여 시스템은 사용자의 다양한 조건과 선호도를 고려하여 최적의 음식을 추천합니다.
+
+-------
+# ERD Diagram
+![ERD Diagram](./image/ERD.png)
+
+### 테이블 설명
+
+- **user**: 사용자 정보를 저장합니다.
+    - `id`: 사용자 ID
+    - `name`: 사용자 이름
+    - `is_daily`: 데일리 선호도 조사 여부
+    - `preferences_id`: 사용자의 기본 선호도를 참조
+    - `today_preferences_id`: 사용자의 오늘의 선호도를 참조
+    - `group_id`: 사용자가 속한 그룹을 참조
+
+- **preferences**: 사용자의 음식 선호도를 저장합니다.
+    - `id`: 선호도 ID
+    - `korean_food`, `japanese_food`, `chinese_food`, `western_food`, `southeast_asian_food`: 각 카테고리별 음식 선호도 점수
+    - `spicy_type`: 매운 음식 선호도
+    - `food_type_id`: 식단 유형을 참조
+
+- **today_preferences**: 사용자의 오늘의 음식 선호도를 저장합니다.
+    - `id`: 오늘의 선호도 ID
+    - 여러 카테고리별 선호도 점수 (`today_korean_food`, `today_japanese_food`, `today_chinese_food` 등)
+
+- **user_group**: 사용자 그룹 정보를 저장합니다.
+    - `id`: 그룹 ID
+    - `created_at`: 그룹 생성 일자
+    - `is_result`: 그룹 결과 여부
+
+- **food_type**: 식단 유형 정보를 저장합니다.
+    - `id`: 식단 유형 ID
+    - `name`: 식단 유형 이름 (예: 비건, 할랄, 다이어트)
+
+- **exceptional_food**: 예외 음식 정보를 저장합니다.
+    - `id`: 예외 음식 ID
+    - `name`: 예외 음식 이름 (예: 해산물, 계란)
+
+- **user_exceptional_food**: 사용자별 예외 음식을 저장합니다.
+    - `preferences_id`: 사용자 선호도를 참조
+    - `exceptional_food_id`: 예외 음식을 참조
+
+- **food_list**: 음식 목록을 저장합니다.
+    - `id`: 음식 ID
+    - `food_name`: 음식 이름
+    - `s3_link`: 음식 이미지 링크
+
+- **friend_name_list**: 사용자 친구 목록을 저장합니다.
+    - `user_id`: 사용자 ID
+    - `friend_name`: 친구 이름
+-----
+
 # 🥄 페이지별 소개
 
-## * 메인 페이지 
+## * 메인 페이지
 <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/162880508/0fbed8d7-46b4-4964-92b7-29f4682eae41" width="300" height="650"/>
 
 ## * 함께 먹기 페이지 - 그룹핑을 하고 그륩핑된 유저의 선호도를 기반으로 메뉴를 추천하는 페이지입니다.
@@ -104,7 +250,7 @@ https://github.com/Club-PARD/Mumuk_iOS/blob/main/README.md
 
 
 
-## * 데일리 푸드 스크럼 - 사용자의 오늘의 음식 선호도 조사하는 페이지 
+## * 데일리 푸드 스크럼 - 사용자의 오늘의 음식 선호도 조사하는 페이지
 
 
 
@@ -143,7 +289,7 @@ https://github.com/Club-PARD/Mumuk_iOS/blob/main/README.md
 
 
 
-## * 친구 목록 - 사용자의 친구 목록과 친구들의 음식 선호도를 확인 할 수 있는 페이지 
+## * 친구 목록 - 사용자의 친구 목록과 친구들의 음식 선호도를 확인 할 수 있는 페이지
 <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/29551a1c-a532-46ae-b04d-511f20608845" width="300" height="650"/>
               
 <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/dad2ceb2-01e2-4e18-82a1-e0e57bf30710" width="300" height="650"/>
@@ -162,147 +308,6 @@ https://github.com/Club-PARD/Mumuk_iOS/blob/main/README.md
 <br/><br/>개인 Foorofile 수정 가능                                  프로필 수정 가능<br/><br/><br/><br/>
 
 -------------------
-# ★ 핵심 기능 설명
-
-1. **푸드 프로필**
-    
->    함께 식사를 하는 사람들끼리 서로의 취향을 알게하기 위한 기능
->    알러지, 비선호 음식,매운맛 수용도,식단등 선택
->    친구추가 후에 상호간 확인이 가능함
-    
-2. **데일리 푸드 스크럼** 
-    
->   함께 식사를 하는 사람들끼리 서로의 취향을 알게하기 위한 기능
->   그날의 음식취향을 키워드 양자택일로 선택
->   친구추가 후에 상호간 확인이 가능함
-    
-3. **친구 추가 및 그룹핑 기능**
-    
->    함께 식사를 하는 사람들의 취향을 한눈에 보기쉽게 모으는 기능
->    서비스내 닉네임 검색으로 친구추가
->    친구목록에서 친구의 푸드 프로필 확인 가능
-    
-4. **그룹핑된 사람들의 선호도를 반영하여 그룹의 선호가 반영된 메뉴 3개 추천**
->    추천된 메뉴가 그룹원들의 선호가 얼마나 반영되어서 선정됐는지 표시
-
-
-----------
-# 🚀 Python 메뉴 추천 시스템
-
-## 추천 로직 설명
-
-1. **사용자 입력 받기**:
-    - 사용자의 선호도, 식단 요구사항(예: 비건, 할랄, 다이어트), 먹기 싫어하는 음식, 어제 먹은 음식 등의 정보를 JSON 형식으로 입력받습니다.
-
-2. **후보 음식 선정**:
-    - 사용자의 식단 유형(비건, 할랄, 다이어트 등)을 기준으로 후보 음식을 선정합니다.
-    - 각 사용자의 예외 음식을 제외하고, 매운 음식을 못 먹는 사용자라면 매운 음식을 제외합니다.
-    - 어제 먹은 음식을 포함하는 음식도 제외합니다.
-
-3. **공통된 음식 찾기**:
-    - 모든 사용자의 조건을 만족하는 공통된 후보 음식 목록을 생성합니다.
-
-4. **그룹 선호도 계산**:
-    - 공통된 후보 음식 각각에 대해, 모든 사용자의 선호도를 바탕으로 그룹 선호도를 계산합니다.
-    - 각 음식의 카테고리에 따라 사용자의 선호도 가중치를 적용하여 계산합니다.
-    - 음식이 여러 카테고리에 속할 수 있으며, 각 카테고리에 대해 가중치를 달리하여 선호도를 계산합니다.
-
-5. **상위 음식 추천**:
-    - 그룹 선호도가 높은 순서대로 상위 3개의 음식을 추천합니다.
-    - 각 음식에 대해 음식 카테고리별로 사용자 그룹의 선호도를 추가로 계산하여 보여줍니다.
-    - 여러 그룹(예: 고기, 해산물, 채소 등) 내에서의 선호도를 계산하여 상세히 보여줍니다.
-
-### 예시
-
-예를 들어, 세 명의 사용자가 다음과 같은 선호도를 가지고 있다고 가정해봅시다:
-
-- 사용자 1: 비건, 매운 음식 못 먹음, 어제 비빔밥 먹음
-- 사용자 2: 다이어트 중, 해산물 싫어함
-- 사용자 3: 할랄, 유제품 싫어함
-
-이 경우, 시스템은 다음과 같은 과정을 통해 음식을 추천합니다:
-
-1. **비건, 다이어트, 할랄 식단 유형에 맞는 후보 음식 선정**: 각 식단 유형에 맞는 음식 목록에서 후보 음식을 선정합니다.
-2. **각 사용자별 필터링**:
-    - 비건 사용자: 예외 음식(유제품 포함된 음식, 매운 음식 등) 제외
-    - 다이어트 사용자: 해산물 제외
-    - 할랄 사용자: 유제품 제외
-3. **공통된 음식 찾기**: 모든 사용자의 조건을 만족하는 공통된 후보 음식 목록을 생성합니다.
-4. **그룹 선호도 계산**: 공통된 후보 음식 각각에 대해, 사용자의 선호도를 바탕으로 그룹 선호도를 계산합니다.
-5. **상위 음식 추천**: 그룹 선호도가 높은 상위 3개의 음식을 추천하고, 각 음식의 카테고리별 선호도를 보여줍니다.
-
-이렇게 하여 시스템은 사용자의 다양한 조건과 선호도를 고려하여 최적의 음식을 추천합니다.
-![ERD Diagram](./image/ERD.png)
-
-### 테이블 설명
-
-- **user**: 사용자 정보를 저장합니다.
-   - `id`: 사용자 ID
-   - `name`: 사용자 이름
-   - `is_daily`: 데일리 선호도 조사 여부
-   - `preferences_id`: 사용자의 기본 선호도를 참조
-   - `today_preferences_id`: 사용자의 오늘의 선호도를 참조
-   - `group_id`: 사용자가 속한 그룹을 참조
-
-- **preferences**: 사용자의 음식 선호도를 저장합니다.
-   - `id`: 선호도 ID
-   - `korean_food`, `japanese_food`, `chinese_food`, `western_food`, `southeast_asian_food`: 각 카테고리별 음식 선호도 점수
-   - `spicy_type`: 매운 음식 선호도
-   - `food_type_id`: 식단 유형을 참조
-
-- **today_preferences**: 사용자의 오늘의 음식 선호도를 저장합니다.
-   - `id`: 오늘의 선호도 ID
-   - 여러 카테고리별 선호도 점수 (`today_korean_food`, `today_japanese_food`, `today_chinese_food` 등)
-
-- **user_group**: 사용자 그룹 정보를 저장합니다.
-   - `id`: 그룹 ID
-   - `created_at`: 그룹 생성 일자
-   - `is_result`: 그룹 결과 여부
-
-- **food_type**: 식단 유형 정보를 저장합니다.
-   - `id`: 식단 유형 ID
-   - `name`: 식단 유형 이름 (예: 비건, 할랄, 다이어트)
-
-- **exceptional_food**: 예외 음식 정보를 저장합니다.
-   - `id`: 예외 음식 ID
-   - `name`: 예외 음식 이름 (예: 해산물, 계란)
-
-- **user_exceptional_food**: 사용자별 예외 음식을 저장합니다.
-   - `preferences_id`: 사용자 선호도를 참조
-   - `exceptional_food_id`: 예외 음식을 참조
-
-- **food_list**: 음식 목록을 저장합니다.
-   - `id`: 음식 ID
-   - `food_name`: 음식 이름
-   - `s3_link`: 음식 이미지 링크
-
-- **friend_name_list**: 사용자 친구 목록을 저장합니다.
-   - `user_id`: 사용자 ID
-   - `friend_name`: 친구 이름
-
-
-
-
-
-# ♥ 팀원 소개
-------
-|                                                🐣 임시우                                                 |                          🐭 이주향                           |                          🦉 김예정                           |                          🐱먹꾸와 토리                            |
-|:-----------------------------------------------------------------------------------------------------:|:---------------------------------------------------------:|:---------------------------------------------------------:|:---------------------------------------------------------:|
-|                                                  PM                                                   |                            기획                             |                           디자인                            |                            사랑둥이                            |
-|  <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/b8ebc366-7bb2-40b3-9086-532a4e09cb12" style="width: 150px; height: 150px; object-fit: cover;">  |  <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/f5b7cfac-ca07-420d-b724-44952fd0e0a0" style="width: 150px; height: 150px; object-fit: cover;">   | <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/2a9b5bd9-9943-4c06-b207-bb611e37808f" style="width: 150px; height: 150px; object-fit: cover;"> |  <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/fc432403-5a28-4481-a4e4-d79e542c3f3c" style="width: 150px; height: 150px; object-fit: cover;">  |
-|                                                이시온                                                 |                          🐹 김현중                           |                          🐨 김민준                           |                          🐶 유재혁                           |
-|                                                  백엔드                                                  |                           프론트엔드                           |                           프론트엔드                           |                           프론트엔드                           |
-| <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/f26e4bed-3825-4461-8e1a-ef5a4d2dda8e" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/8803b490-b1cd-445a-a9c3-2686256fbe5f" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/df610ae8-d571-4a39-91b3-0c57a067dd84" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="https://github.com/Club-PARD/Mumuk_iOS/assets/103707692/f9d2904b-db60-4a17-aec1-246711d3da66" style="width: 150px; height: 150px; object-fit: cover;"> |
-
-
-
-
-
-## 개발환경 및 언어
-<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
-<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
-
 <div>
   <img src="https://img.shields.io/badge/Github-white?style=for-the-badge&logo=Github&logoColor=FF971A">
   <img src="https://img.shields.io/badge/Notion-white?style=for-the-badge&logo=Notion&logoColor=FF971A">

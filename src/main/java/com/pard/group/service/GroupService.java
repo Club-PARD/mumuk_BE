@@ -67,6 +67,19 @@ public class GroupService {
         // Delete the group
         groupRepo.delete(group);
     }
+    public void deleteAllGroups() {
+        List<Group> groups = groupRepo.findAll();
+
+        for (Group group : groups) {
+            for (User user : group.getUsers()) {
+                user.setGroup(null);
+                user.setIsGrouped(false);
+                userRepo.save(user);
+            }
+            groupRepo.delete(group);
+        }
+    }
+
 
     public GroupDto.Read getGroup(String groupId) {
         Group group = groupRepo.findById(groupId)
