@@ -180,7 +180,7 @@ food_categories = {
         "알밥", "두부김치", "포케", "연어포케", "열무국수", "굴비구이", "황태국",
         "반미", "분짜", "갈치구이", "장어덮밥", "버섯전골", "카츠샌도", "후토마끼",
         "스파게티", "딤섬","까르보나라 파스타", "해물파전", "파전", "뇨끼", "라멘",
-        "우동","필라프", "냉면"
+        "우동","필라프", "냉면", "알리올리오"
 
     ],
     'soup': [
@@ -313,8 +313,8 @@ def recommend_food():
                 user_foods = {food for food in user_foods if '로제' not in food}
             if '크림' in user['yesterdayFood']:
                 user_foods = {food for food in user_foods if '크림' not in food}
-            if '스파게티' in user['yesterdayFood'] or '파스타' in user['yesterdayFood']:
-                user_foods = {food for food in user_foods if '스파게티' not in food and '파스타' not in food and '알리오올리오' not in food}
+            if '스파게티' in user['yesterdayFood'] or '파스타' in user['yesterdayFood'] or '알리올리오' in user['yesterdayFood']:
+                user_foods = {food for food in user_foods if '스파게티' not in food and '파스타' not in food and '알리올리오' not in food}
 
         user_candidate_foods.append(user_foods)
 
