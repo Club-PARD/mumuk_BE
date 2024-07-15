@@ -319,8 +319,10 @@ def recommend_food():
         user_candidate_foods.append(user_foods)
 
     # 모든 사용자에 대해 공통된 음식 찾기
-    common_foods = set.intersection(*user_candidate_foods)
-
+    if user_candidate_foods:
+        common_foods = set.intersection(*user_candidate_foods)
+    else:
+        common_foods = set()
     # 음식별 그룹 선호도 계산
     group_preferences = {}
     for food in common_foods:
